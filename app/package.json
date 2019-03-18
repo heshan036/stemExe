@@ -1,0 +1,30 @@
+{
+  "name": "ybb-pc-ng",
+  "productName": "云宝贝课堂",
+  "version": "1.0.0",
+  "description": "智慧幼教是移动互联网时代，长征教育结合幼儿园的教育教学、园所管理、师资团队、家园共育、安全防护、宣传招生六大方面，从幼儿园整体运营出发，为幼儿园量身打造的信息化整体解决方案。包括：智慧课堂、智慧管理、智慧师训、智慧家园、智能卫士、微信招生号，全面打造数字化幼儿园。",
+  "main": "./main.prod.js",
+  "author": {
+    "name": "YBB Team, Talkweb co.ltd",
+    "email": "yunbaobeiteam@126.com",
+    "url": "https://www.yunbaobei.com"
+  },
+  "scripts": {
+    "electron-rebuild": "node -r babel-register ../internals/scripts/ElectronRebuild.js",
+    "postinstall": "npm run electron-rebuild"
+  },
+  "license": "",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "ffi": "^2.2.0",
+    "iconv-lite": "^0.4.23",
+    "macaddress": "^0.2.8",
+    "qrcode": "^1.2.2",
+    "ref": "^1.3.5",
+    "ref-array": "^1.2.0",
+    "ref-struct": "^1.1.0",
+    "regedit": "^3.0.0",
+    "win32-api": "^1.11.0",
+    "windows-registry": "^0.1.3"
+  }
+}

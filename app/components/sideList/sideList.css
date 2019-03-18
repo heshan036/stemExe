@@ -1,0 +1,43 @@
+.subList{
+  flex: 1;
+  height: 100vh;
+  padding:3vh 3vw 3vh 0;
+  position: relative;
+  -webkit-app-region: no-drag;
+}
+
+.subList h1{/*font-size: 22px;*/ font-size: 2.5vw; color: #fff;text-align: center;position: relative;-webkit-app-region: drag}
+.h_btn_group{position: absolute;right:0;top:50%;transform: translate(0,-50%);margin-bottom: 0;z-index: 10;-webkit-app-region: no-drag;}
+.h_btn_group span{
+  display: inline-block;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  line-height: 27px;
+  text-align: center;
+  background: rgba(255,255,255,0.2);
+  margin-left:1vw;
+  cursor: pointer
+}
+.subList h1 p span{
+    width: 2.447vw;
+    height: 2.447vw;
+    float: left;
+}
+.subList h1 p span i{
+    width: 2.447vw;
+    height: 2.447vw;
+    font-size: 1.1979vw;
+    line-height: 2.447vw;
+    display: block;
+}
+.subList h1 p span:nth-child(1) i{
+  font-size: 2vw;
+  line-height: 2.6vw;
+  display: block;
+  height: 2.6vw;
+  font-weight: bold;
+}
+
+
+

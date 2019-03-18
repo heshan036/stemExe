@@ -1,0 +1,63 @@
+/*---------------------------------------------------------CSS初始化开始----------------------------------------------- */
+/*author:rckevin*/
+/*version:16.10.8.1*/
+@charset "utf-8";
+
+/* ------------------------------------全局定义---------------------------------------- */
+
+/* 格式化具有margin和padding的元素 */
+* {margin:0;padding:0;}
+
+/* 修正IE5.x和IE6的斜体溢出bug */
+* html body { overflow:visible;}
+* html iframe, * html frame { overflow:auto;}
+* html frameset { overflow:hidden;}
+
+/*格式化body以及其他子元素*/
+body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div,tr { margin:0; padding:0; color:#000000;font-family: "Microsoft Yahei";}
+input,select,span,p { font-size:12px;font-family: "Microsoft Yahei";}
+
+/* 设置内容左对齐，恢复因BODY设置剧中产生的继承 */
+body div { text-align:left;}
+
+/* 标签属性，textarea,input 强制输入时内容超出时换行 */
+textarea,input{ word-wrap:break-word; word-break:break-all; padding:0px;}
+
+/* 清除ul列表标记的样式，ul列表更多的用在不需要列表前置符号的样式里 */
+li { list-style-type:none;}
+
+/* 格式化图片标签 */
+img { border:0 none; max-width:100%; height:auto;}
+
+/* 格式化链接样式 */
+a,a:link { font-size:12px; color:#000000; text-decoration:none;font-family: "Hiragino Sans GB","Microsoft Yahei";}
+a:visited { color:#17b7f3; text-decoration:none;}
+a:hover { color:#17b7f3;}
+
+/* 去掉链接的虚线框 */
+a { outline:none; star:expression(this.onFocus=this.blur());}
+
+/* 去掉所有表单outline */
+input,select,button,textarea { outline: none; }
+
+/* 定义H系列标签，覆盖H系列标签默认属性 */
+h1 { font-size:24px;}
+h2 { font-size:20px;}
+h3 { font-size:18px;}
+h4 { font-size:16px;}
+h5 { font-size:14px;}
+h6 { font-size:12px;}
+
+/* ------------------------------------通用属性定义---------------------------------------- */
+
+/*强制换行元素*/
+.block-break { word-wrap:break-word; word-break:break-all; padding:0px;}
+
+/* 清理浮动元素,当浮动换行时后面元素不希望浮动，添加此属性，防止IE BUG */
+.clear { clear:both; height:0px; width:100%; font-size:1px; line-height:0px; visibility:hidden; overflow:hidden;}
+.clearfix:after {visibility: hidden;display: block;font-size: 0;content: " ";clear: both;height: 0;}
+.clearfix {*zoom:1;}
+
+/* ------------------------------------移动端触屏处理---------------------------------------- */
+a { -webkit-tap-highlight-color: rgba(0,0,0,0); }
+* { -webkit-tap-highlight-color:transparent; }

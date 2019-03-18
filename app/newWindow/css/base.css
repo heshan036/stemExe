@@ -1,0 +1,361 @@
+html,body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background: #edf6fa;
+	font-family: "Microsoft Yahei";
+}
+
+/*------ 通用样式 ------*/
+.ybb-cs-block {
+	margin: 5px 15px;
+	background: #ffffff;
+	padding: 10px;
+}
+.ybb-cs-block .b-title {
+	height: 32px;
+	font-size: 0;
+}
+.ybb-cs-block .b-title .icon {
+	display: inline-block;
+	vertical-align: middle;
+	width: 24px;
+	height: 24px;
+	margin-right: 15px;
+}
+.ybb-cs-block .b-title .text {
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 14px;
+	color: #3f3f3f;
+}
+.ybb-cs-block .b-content {
+	padding: 0 10px;
+}
+.ybb-cs-block .b-content .content-p {
+	font-size: 12px;
+	color: #797979;
+	line-height: 18px;
+}
+.ybb-cs-block .b-content .content-p img {
+	margin: 10px 10px 10px 0;
+}
+.ybb-cs-block .b-checkbox {
+	display: inline-block;
+	vertical-align: middle;
+	line-height: 18px;
+	font-size: 0;
+}
+.ybb-cs-block .b-checkbox .checkitem {
+	display: none;
+}
+.ybb-cs-block .b-checkbox .checkitem + label {
+	box-sizing: border-box;
+	display: inline-block;
+	vertical-align: middle;
+	width: 15px;
+	height: 15px;
+	border-radius: 15px;
+	border: 1px solid #3f3f3f;
+	background: #0d8fff;
+}
+.ybb-cs-block .b-checkbox .checkitem:checked + label {
+	background: url(../images/checkbox.png) no-repeat center center;
+}
+.ybb-cs-block .b-checkbox .b-checktext {
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 14px;
+	color: #3f3f3f;
+	line-height: 18px;
+}
+.ybb-cs-tab-menu {
+	width: 100%;
+	font-size: 0;
+	text-align: left;
+}
+.ybb-cs-tab-menu li {
+	display: inline-block;
+	vertical-align: middle;
+	width: 33%;
+	height: 100%;
+}
+.ybb-cs-tab-menu li a {
+	box-sizing: border-box;
+	display: block;
+	width: 100%;
+	height: 100%;
+	padding: 0 15px;
+	text-align: center;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	color: #4798c3;
+	background: #e1f2fb;
+}
+.ybb-cs-tab-menu li a:hover {
+	color: #1a5f84;
+	background: #c7e3f1;
+}
+.ybb-cs-tab-menu li a.active {
+	color: #1a5f84;
+	background: #c7e3f1;
+}
+.ybb-cs-tab-body {
+	width: 100%;
+	height: 100%;
+}
+.ybb-cs-tab-body .tab-block {
+	display: none;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+}
+.ybb-cs-tab-body .tab-block.active {
+	display: block;
+}
+
+/*------ 单页样式 ------*/
+
+/*-cs_check_plan-*/
+.check-head {
+	position: relative;
+	width: 100%;
+	height: 50px;
+	background: #e1f2fb;
+	border-bottom: 1px solid #a5c3d8;
+}
+.check-head p {
+	color: #4798c3;
+	font-size: 14px;
+	line-height: 50px;
+	text-align: center;
+}
+.check-main {
+	position: absolute;
+	left: 0;
+	top: 51px;
+	bottom: 0;
+	width: 100%;
+	overflow: auto;
+}
+
+/*-cs_share-*/
+.share-head {
+	position: relative;
+	width: 100%;
+	height: 50px;
+	background: #e1f2fb;
+	border-bottom: 1px solid #a5c3d8; 
+	overflow: auto;
+}
+.share-head .ybb-cs-tab-menu {
+	height: 50px;
+}
+.share-head .ybb-cs-tab-menu li a {
+	line-height: 24px;
+}
+.share-main {
+	position: absolute;
+	left: 0;
+	top: 51px;
+	bottom: 52px;
+	width: 100%;
+}
+.share-read {
+	position: relative;
+	font-size: 0;
+	line-height: 32px;
+	margin: 0 0 15px 25px;
+}
+.share-read .pic {
+	display: inline-block;
+	vertical-align: middle;
+	width: 32px;
+	height: 32px;
+	border-radius: 32px;
+	overflow: hidden;
+}
+.share-read .pic img {
+	width: 100%;
+	height: auto;
+}
+.share-read .info {
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 12px;
+	color: #000000;
+	line-height: 16px;
+	margin-left: 10px;
+}
+.share-bottom {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 32px;
+	padding: 10px 0;
+}
+.share-bottom .btn {
+	display: block;
+	margin: 0 auto;
+	width: 200px;
+	height: 32px;
+	background: #70cbfb;
+	border-radius: 5px;
+	color: #ffffff;
+	font-size: 14px;
+	line-height: 32px;
+	text-align: center;
+	border: 0;
+}
+/*------ 杂项 ------*/
+.mt10 { margin-top: 10px !important; }
+.ml10 { margin-left: 10px !important; }
+.ml15 { margin-left: 15px !important; }
+
+
+
+.popupsWrapper{
+  position: fixed;left: 0;top: 0;height:100vh;width: 100vw;max-width: 800px;
+
+}
+/*.popupsClose{
+    position: absolute;
+    color: #012b60;
+    right: 1vw;
+    top:1vw;
+    width: 2vw;
+    height: 2vw;
+    cursor: pointer;
+    z-index: 103;
+    display: block;
+    background-color: RGBA(74,170,254,.6);
+    -webkit-border-radius: 1vw;
+    font-size: 1.56vw;
+    line-height:1.8vw;
+    text-align:center;
+}*/
+.popupsClose{
+    position: absolute;
+    color: #fff;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 103;
+}
+.popupsBg{position:absolute;z-index: 0;background: rgba(0,0,0,0.4);top:0;left: 0;bottom: 0;right: 0}
+.popupsBox{
+  position:absolute;
+  z-index: 10;
+  background:#fff;
+  left: 50%;
+  top: 50%;
+  width: 80%;
+  max-width: 640px;
+  transform: translate(-50%,-50%);
+  border-radius:10px;
+  overflow: hidden;
+   
+}
+.mainPop{
+    position: absolute;
+/*    left: 50%;
+    margin-left: -41.65vw;
+    top: 50%;
+    margin-top: -24.45vw;
+    width: 83.3vw;
+    height: 48.9vw;*/
+    width: 100vw;
+    height: 58.7vw;
+    z-index: 100;
+    background-color: #fff;
+    -webkit-border-radius: 1.56vw;
+    overflow: hidden;
+    
+}
+.mainPop h2{
+  text-align: center;
+  color: #fff;
+  width: 100vw;
+  height:9.26vw;
+  background-image: url('../../resource/images/modal1_titleBg_Big.jpg');
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  background-size:100% 100%;
+  font-size: 2.616vw;
+  color:#fff; 
+  line-height:6.864vw;
+  text-align:center;
+  overflow: hidden;
+}
+.mainPop h2 b{font-size: 2.616vw;font-weight: 500}
+.mainPop h2 p{font-weight: lighter}
+.center_modalCon{
+   position: absolute;
+   left: 0px;
+   top:12vw;
+   width: 100vw;
+   height: 46.92vw;
+}
+.center_modalCon iframe{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 46.8vw;
+    border: none;
+/*    border-top: 2px solid #ccc;*/
+}
+.center_modalCon ul{
+    position: absolute;
+    left: 0;
+    top: -2.4vw;
+    width: 100vw;
+    height: 6vw;
+    background-color: #e1f5fb;
+}
+.center_modalCon ul li{
+    position: relative;
+    width: auto;
+    height: 6vw;
+    float: left;
+    padding: 0 1.2vw;
+    background-color: #C7E3F1;
+}
+.center_modalCon ul li div{
+    position: relative;
+    width: auto;
+    height: 3vw;
+    font-size: 1.872vw;
+    color:#fff; 
+    line-height:3vw;
+    text-align:center;
+}
+.center_modalCon iframe>html{
+    background-color: #000;
+}
+.center_modalCon iframe>html>body>.share-bottom>.btn{
+    width: 87.49vw;
+    height: 4.62vw;
+    background-color: RGB(74,170,254);
+    -webkit-border-radius: 6px;
+    font-size: 1.872vw;
+    color:#fff; 
+    line-height:4.62vw;
+}
+.but{
+    position: absolute;
+    display: none;
+    left: 6.24vw;
+    bottom: 2.07vw;
+    width: 91.13vw;
+    height: 4.62vw;
+    background-color: RGB(74,170,254);
+    -webkit-border-radius: 6px;
+    font-size: 1.972vw;
+    color:#fff; 
+    line-height:4.62vw;
+    text-align:center;
+}

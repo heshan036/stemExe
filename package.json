@@ -1,0 +1,280 @@
+{
+  "name": "ybb-pc-ng1",
+  "productName": "云宝贝课堂",
+  "version": "1.0.0",
+  "description": "智慧幼教是移动互联网时代，长征教育结合幼儿园的教育教学、园所管理、师资团队、家园共育、安全防护、宣传招生六大方面，从幼儿园整体运营出发，为幼儿园量身打造的信息化整体解决方案。包括：智慧课堂、智慧管理、智慧师训、智慧家园、智能卫士、微信招生号，全面打造数字化幼儿园。",
+  "scripts": {
+    "build": "concurrently \"npm run build-main\" \"npm run build-renderer\"",
+    "build-dll": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.renderer.dev.dll.js --colors",
+    "build-main": "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.main.prod.js --colors",
+    "build-renderer": "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.renderer.prod.js --colors",
+    "dev": "cross-env START_HOT=1 node -r babel-register ./internals/scripts/CheckPortInUse.js && cross-env START_HOT=1 npm run start-renderer-dev",
+    "electron-rebuild": "electron-rebuild --parallel --force --types prod,dev,optional --module-dir app",
+    "flow": "flow",
+    "flow-typed": "rimraf flow-typed/npm && flow-typed install --overwrite || true",
+    "lint": "cross-env NODE_ENV=development eslint --cache --format=node_modules/eslint-formatter-pretty .",
+    "lint-fix": "npm run lint -- --fix",
+    "lint-styles": "stylelint app/*.css app/components/*.css --syntax scss",
+    "lint-styles-fix": "stylefmt -r app/*.css app/components/*.css",
+    "package": "npm run build && build --publish never",
+    "package-all": "npm run build && build -mwl",
+    "package-linux": "npm run build && build --linux",
+    "package-win": "npm run build && build --win --x64 --publish always",
+    "package-win32": "npm run build && build --win --ia32 --publish always",
+    "postinstall": "node -r babel-register internals/scripts/CheckNativeDep.js && npm run flow-typed && npm run build-dll && electron-builder install-app-deps && node node_modules/fbjs-scripts/node/check-dev-engines.js package.json",
+    "prestart": "npm run build",
+    "start": "cross-env NODE_ENV=production electron ./app/",
+    "start-main-dev": "cross-env HOT=1 NODE_ENV=development electron -r babel-register ./app/main.dev",
+    "start-renderer-dev": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack-dev-server/bin/webpack-dev-server --config webpack.config.renderer.dev.js",
+    "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings -r babel-register ./internals/scripts/RunTests.js",
+    "test-all": "npm run lint && npm run flow && npm run build && npm run test && npm run test-e2e",
+    "test-e2e": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings -r babel-register ./internals/scripts/RunTests.js e2e",
+    "test-watch": "npm test -- --watch"
+  },
+  "browserslist": "electron 1.6",
+  "build": {
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "http://qncdn.yunbaobei.com/"
+      }
+    ],
+    "productName": "云宝贝课堂",
+    "appId": "com.talkweb.ybb.pc",
+    "files": [
+      "dist/",
+      "newWindow/",
+      "node_modules/",
+      "resource/",
+      "app.html",
+      "main.prod.js",
+      "main.prod.js.map",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "./extra_res/AfaPN.dll",
+        "to": "../AfaPN.dll"
+      },
+      {
+        "from": "./extra_res/HDisk.dll",
+        "to": "../HDisk.dll"
+      },
+      {
+        "from": "./extra_res/STEMPlayer",
+        "to": "../STEMPlayer"
+      },
+      {
+        "from": "./extra_res/ybb.ico",
+        "to": "../ybb.ico"
+      },
+      {
+        "from": "./extra_res/license.txt",
+        "to": "../license.txt"
+      },
+      {
+        "from": "./extra_res/ARSTEM.json",
+        "to": "../ARSTEM.json"
+      },
+      {
+        "from": "./extra_res/pepflashplayer_ia32.dll",
+        "to": "../pepflashplayer.dll"
+      },
+      {
+        "from": "./extra_res/wget",
+        "to": "../wget"
+      },
+      {
+        "from": "./extra_res/wts.exe",
+        "to": "../wts.exe"
+      },
+      {
+        "from": "./extra_res/sendCodeToAP5.exe",
+        "to": "../sendCodeToAP5.exe"
+      },
+      {
+        "from": "./extra_res/Camera",
+        "to": "../Camera"
+      }
+    ],
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "AppImage"
+      ],
+      "category": "Development"
+    },
+    "directories": {
+      "buildResources": "resources",
+      "output": "release"
+    }
+  },
+  "author": {
+    "name": "YBB Team, Talkweb co.ltd",
+    "email": "yunbaobeiteam@126.com",
+    "url": "https://www.yunbaobei.com"
+  },
+  "license": "",
+  "bugs": {
+    "url": ""
+  },
+  "keywords": [],
+  "homepage": "https://www.yunbaobei.com",
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mocks/fileMock.js",
+      "\\.(css|less|sass|scss)$": "identity-obj-proxy"
+    },
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "app/node_modules"
+    ],
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    },
+    "setupFiles": [
+      "./internals/scripts/CheckBuiltsExist.js"
+    ]
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-jest": "^22.1.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-dev-expression": "^0.2.1",
+    "babel-plugin-dynamic-import-webpack": "^1.0.2",
+    "babel-plugin-flow-runtime": "^0.15.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-es2015-classes": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-react-hmre": "^1.1.1",
+    "babel-preset-react-optimize": "^1.0.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "chalk": "^2.3.0",
+    "concurrently": "^3.5.1",
+    "cross-env": "^5.1.3",
+    "cross-spawn": "^6.0.4",
+    "css-loader": "^0.28.9",
+    "detect-port": "^1.2.2",
+    "electron": "^1.8.3",
+    "electron-builder": "^19.55.3",
+    "electron-devtools-installer": "^2.2.3",
+    "electron-rebuild": "^1.7.3",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.1",
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-formatter-pretty": "^1.3.0",
+    "eslint-import-resolver-webpack": "^0.8.4",
+    "eslint-plugin-compat": "^2.2.0",
+    "eslint-plugin-flowtype": "^2.42.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jest": "^21.7.0",
+    "eslint-plugin-jsx-a11y": "6.0.3",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-react": "^7.6.1",
+    "express": "^4.16.2",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "fbjs-scripts": "^0.8.1",
+    "file-loader": "^1.1.6",
+    "flow-bin": "^0.64.0",
+    "flow-runtime": "^0.16.0",
+    "flow-typed": "^2.3.0",
+    "grunt": "^1.0.2",
+    "grunt-electron-installer": "^2.1.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^22.1.4",
+    "jsdom": "^11.6.2",
+    "minimist": "^1.2.0",
+    "node-sass": "^4.7.2",
+    "npm-logical-tree": "^1.2.1",
+    "react-test-renderer": "^16.2.0",
+    "redux-logger": "^3.0.6",
+    "rimraf": "^2.6.2",
+    "sass-loader": "^6.0.6",
+    "sinon": "^4.2.2",
+    "spectron": "^3.8.0",
+    "style-loader": "^0.20.1",
+    "stylefmt": "^6.0.0",
+    "stylelint": "^8.4.0",
+    "stylelint-config-standard": "^18.0.0",
+    "uglifyjs-webpack-plugin": "1.1.8",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.10.0",
+    "webpack-bundle-analyzer": "^2.9.2",
+    "webpack-dev-server": "^2.11.1",
+    "webpack-merge": "^4.1.1"
+  },
+  "dependencies": {
+    "antd": "^3.4.1",
+    "axios": "^0.18.0",
+    "babel-plugin-import": "^1.6.5",
+    "command-exists": "^1.2.2",
+    "decompress": "^4.2.0",
+    "devtron": "^1.4.0",
+    "electron-debug": "^1.5.0",
+    "electron-log": "^2.2.14",
+    "electron-squirrel-startup": "^1.0.0",
+    "electron-updater": "^2.21.3",
+    "font-awesome": "^4.7.0",
+    "fs-extra": "^5.0.0",
+    "history": "^4.7.2",
+    "iconv-lite": "^0.4.23",
+    "lodash": "^4.17.5",
+    "macaddress": "^0.2.8",
+    "md5": "^2.2.1",
+    "mdfive": "^1.0.2",
+    "mkdirp": "^0.5.1",
+    "mt-downloader": "^2.2.2",
+    "mt-files-downloader": "^0.2.5",
+    "node-localstorage": "^1.3.1",
+    "node-xlsx": "^0.12.1",
+    "prop-types": "^15.6.0",
+    "ps-node": "^0.1.6",
+    "qrcode.react": "^0.8.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-hot-loader": "^4.0.0-beta.13",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "^5.0.0-alpha.6",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
+    "regedit": "^3.0.0",
+    "request": "^2.85.0",
+    "smart-downloader": "^1.1.0",
+    "tree-kill": "^1.2.0"
+  },
+  "devEngines": {
+    "node": ">=7.x",
+    "npm": ">=4.x",
+    "yarn": ">=0.21.3"
+  }
+}

@@ -1,0 +1,74 @@
+.common_header{/*padding:3vh 2vw;*/padding:1.69vw 2vw;display: flex;justify-content: space-between;position: relative;-webkit-app-region: drag}
+.common_header h1{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    font-size: 2.5vw;
+    z-index: 100;
+    color: #fff;
+    line-height: 3vw;
+    display: block;
+    height: 3vw;
+}
+.common_header h1 img{height:3.229vw;}
+.h_btn_group span,.h_btn_group_l a,.h_btn_group_l span{
+  margin-right: 1.2vw;
+  width:2.6vw;
+  height: 2.6vw;
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  text-align: center;
+  line-height: 2.6vw;
+  border-radius: 50%;
+  color: #fff;
+  font-size: .52vw;
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+}
+.h_btn_group_l span:hover {
+    color: #40A9FF;
+}
+.common_header>p>div{
+  margin-right: 1.2vw;
+  width:20.833vw;
+  height: 20.833vw;
+  display: inline-block;
+  background: rgba(255,255,255,0);
+  text-align: center;
+  line-height: 20.833vw;
+  border-radius: 50%;
+  color: #fff;
+  font-size: .52vw;
+}
+.h_btn_group{position: absolute;right:0;top:50%;transform: translate(0,-50%);margin-bottom: 0;-webkit-app-region: no-drag;}
+
+.h_btn_group span{
+  float: left;
+  display: inline-block;
+  width: 2.6vw;
+  height: 2.6vw;
+  border-radius: 50%;
+  line-height: 2.6vw;
+  text-align: center;
+  background: rgba(255,255,255,0.2);
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+.h_btn_group span:hover i{
+    color: #40A9FF;
+}
+.h_btn_group span i{
+  font-size: 1.4vw;
+  line-height: 2.6vw;
+  height: 2.6vw;
+  display: block;
+}
+.h_btn_group span:nth-child(1) :before{
+  font-size: 2vw;
+  line-height: 2.6vw;
+  display: block;
+  height: 2.6vw;
+  font-weight: bold;
+}
+

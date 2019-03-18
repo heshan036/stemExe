@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>云宝贝课堂</title>
+  <!-- <link rel="stylesheet" href="https://at.alicdn.com/t/font_571515_jgm59ke4b30afw29.css"> -->
+  <style>
+    body{font-family:'黑体'; -webkit-app-region: no-drag;}
+    .common_header{padding:3vh 2vw;display: flex;justify-content: space-between;position: relative;-webkit-app-region: drag}
+    .common_header h1{position: absolute;top:50%;left:50%;transform: translate(-50%,-50%);font-size: 24px;z-index: 100;color: #fff}
+    .common_header h1 img{height:32px}
+    .common_header span,.common_header a{
+      margin-right: 1.2vw;
+      width:40px;
+      height: 40px;
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      text-align: center;
+      line-height: 40px;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 10px;
+      cursor: pointer;
+      -webkit-app-region: no-drag;
+    }
+    .common_header>p>div{
+      margin-right: 1.2vw;
+      width:40px;
+      height: 40px;
+      display: inline-block;
+      background: rgba(255,255,255,0);
+      text-align: center;
+      line-height: 40px;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 10px
+    }
+    .h_btn_group{position: absolute;right:0;top:50%;transform: translate(0,-50%);margin-bottom: 0;-webkit-app-region: no-drag;}
+
+    .h_btn_group span{
+      display: inline-block;
+      width: 27px;
+      height: 27px;
+      border-radius: 50%;
+      line-height: 27px;
+      text-align: center;
+      background: rgba(255,255,255,0.2);
+      cursor: pointer
+    }
+    .load_k{
+      position: absolute;
+      left:0px;
+      top:0px;
+      width: 100vw;
+      height: 100vh;
+      background-image: url("../resource/images/pageWrapper_loding.png");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size:100%;
+    }
+    .load_j{
+      position: absolute;
+      left: 50%;
+      margin-left:-21.1vw;
+      top: 50%;
+      margin-top: -3.25vw;
+    }
+    .load_r{
+      position: relative;
+      left:0px;
+      top: .6vw;
+      width:4.68vw;
+      height: 3.8vw;
+      background: url("../resource/images/load_r.png") no-repeat center ;
+      background-size: auto 100%;
+      margin-bottom:1.43vw;
+      opacity: 0;
+    }
+    .load_jk{
+      position: relative;
+      left:0px;
+      top: .43vw;
+      width:42.2vw;
+      height: 2.7vw;
+      display: block;
+      /*    background-color: #5689e5;*/
+      background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#698edb), to(#3b8ff1));
+      -webkit-border-radius: 1.35vw;
+      -webkit-box-shadow:inset .0vw .1vw .15vw RGBA(0,0,0,.6);
+      /*    background: url("../resource/images/load_t.png") no-repeat center;*/
+      background-size: 100% 100%;
+    }
+    .load_jt{
+      position: absolute;
+      left: .35vw;
+      top: .4vw;
+      width:0vw;
+      height: 1.9vw;
+      background-image: url(../resource/images/load_x.jpg);
+      background-size: auto 100%;
+      -webkit-border-radius: .95vw;
+      -webkit-box-shadow:.0vw .1vw .15vw RGBA(0,0,0,.6);
+      z-index: 2;
+      /*选择动画效果myfirst*/
+      animation-name:myfirst;
+      /*完成一个周期的时间*/
+      animation-duration:1s;
+      /*规定动画速度“linear匀速，ease默认缓动”*/
+      animation-timing-function:linear;
+      /*动画开始时间*/
+      animation-delay:0s;
+      /*动画循环次数“infinite：无限循环”*/
+      animation-iteration-count:infinite;
+    }
+    @keyframes myfirst{
+      0%{
+        background-position:0px 0px;
+      }
+
+      100%{
+
+        background-position:50px 0px;
+      }
+
+    }
+    .load_text{
+      position: absolute;
+      left:0px;
+      top: 0.4vw;
+      width:42.2vw;
+      height: 1.9vw;
+      z-index: 3;
+      font-size: 1vw;
+      color:#fff;
+      line-height:1.9vw;
+      text-align:center;
+      font-weight: 100;
+
+    }
+  </style>
+</head>
+<body>
+<div class="load_k">
+  <div class="common_header">
+    <h1>云宝贝课堂</h1>
+  </div>
+  <div class="load_j">
+    <div id="load_r" class="load_r"></div>
+    <div  class="load_jk">
+      <div id="load_jt" class="load_jt"></div>
+      <div class="load_text">loading...</div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  const axios = require('axios');
+  const fs=require('fs');
+  const path=require('path');
+  const remote = require('electron').remote;
+  const {ipcRenderer} = require('electron');
+  const app=require('electron').remote.app;
+  const platformAPI = remote.app.platformAPI;
+  var storeAPI = remote.app.storeAPI;
+
+  const netReqUrl = remote.getGlobal('globalDatas').netReqUrl;
+  const isOneAct = remote.getGlobal('globalDatas').isOneAct;
+  let sendLoadStatus=false;
+  let loadFinishFlag=false; //是否可以结束loading
+  let actKey_loop; //放激活信息的容器
+  let loopNum=0; //已经请求的mac地址个数
+  // 从浏览器localstorage内恢复数据，主要是2.0.6之前用的是浏览器的localStorage,2.0.6之后使用npm里的数据存储
+  try{
+    if(!storeAPI.length()){
+      console.log(storeAPI.length())
+      // 将localstorage的内容存入npm-localstorage中
+      for(let i = 0;i<localStorage.length;i++){
+        storeAPI.set(localStorage.key(i),localStorage.getItem(localStorage.key(i)));
+      };
+      localStorage.clear();
+    };
+    var realMac = storeAPI.get('realMac') ? storeAPI.get('realMac')  : storeAPI.getRealMac();  //真实物理mac地址
+    var activedAddresses = storeAPI.getActivedMacs();
+    var cachedFullMacList = storeAPI.getObject('allMacs') ? storeAPI.getObject('allMacs') : storeAPI.getFullMacs();
+    var reqMacArr = cachedFullMacList;//需要请求的mac地址数组
+  }catch(err){
+    console.log(err)
+  }
+
+  window.onload = function(){
+    
+    tiktok({"width":"41.5vw"});
+    try{
+      storeAPI.setObject("allMacs", Array.from(new Set(cachedFullMacList)));
+    }catch(err){
+      console.log(err)
+    };
+    //不在线
+    if(!navigator.onLine){
+      return;
+    };
+
+    if(!realMac){
+      alert("无法获取设备标识，请联系您的经销商。");
+      return
+    };
+    
+    getNetData();
+    
+    getOneAct();   
+    
+  }
+
+  // 新管控，一次激活信息获取
+  function getOneAct(){
+    let params = {
+      fifthGeneration:true,
+      networkCardList:cachedFullMacList,
+    };
+    requestNet('CheckDeviceReq',params,realMac,true,(res)=>{
+      console.log(res);
+      if(res.rsp && res.status === 0){
+        try{
+          if(res.rsp.trialMsg){
+            storeAPI.setObject('freeTrial',res.rsp.trialMsg);
+            delete res.rsp.trialMsg;
+          }else{
+            storeAPI.remove('freeTrial')
+          };
+          remote.getGlobal('globalDatas').oneActInfo = res.rsp;
+          storeAPI.setObject('oneActInfo',res.rsp)
+        }catch(err){
+          console.log(err)
+        }
+      }
+      loadFinishFlag=true;
+    })
+  }
+
+//loading时需要获取到的线上信息
+function getNetData(){
+
+  console.log(`loading remote data with mac ${realMac}`);
+
+  // 获取在线升级信息,versionCode为32
+  requestNet('CheckAPPUpdateReq', {versionCode:32},realMac,true,res=>{
+    console.log(res);
+    if(res.status !== 0){
+      return
+    };
+    let V_old = app.getVersion().replace(/\./g,'');
+    let V_new= res.rsp.versionName.replace(/\./g,'');
+    if(parseInt(V_old) < parseInt(V_new)){
+      let updateFlag=storeAPI.get('update_' + res.rsp.versionName);
+      if(res.rsp && res.rsp.versionName !=="AllBaseVsersion" && updateFlag !== "1"){
+        remote.getGlobal('globalDatas').updateAppInfo = res.rsp;
+      }
+    };
+  })
+}
+
+function requestNet(reqName, params = {},deviceID,flag,cb){
+  let header={
+      "appId": "8" ,
+      "version": "10",
+      "device":{
+        "mac":deviceID
+      }
+  };
+  if(flag){
+    header = Object.assign({},header,{"client":{"channel":"official"}})
+  };
+  let _option={
+    method: 'POST',
+    url:netReqUrl,
+    timeout: 30000,
+    params: null,
+    data: {
+      "header":header,
+      "reqName":reqName,
+      "params":params,
+    },
+    headers:{
+      'Accept': 'application/json',
+      'content-type': 'application/json'
+    },
+    validateStatus:(status)=>{
+      return status >= 200 && status < 300;
+    },
+  };
+  axios.request(_option).then(res => {
+    console.log(res);
+    if(res.headers.date){
+      remote.getGlobal('globalDatas').loadTime = res.headers.date;
+      storeAPI.setCheckinDate();
+    };
+    if(res.status === 200 && res.data){
+      typeof cb === 'function' && cb(res.data)
+    };
+  },error => {
+    console.log(error)
+  });
+}
+
+  /*进度调控制
+* L_pro={
+*    "width":Number，(load变化长度)[必填]
+*    "time":Number,（load时间）[可选，默认2]
+*    "ftp":Number,（刷新率）[可选，默认24]
+* }
+*/
+  function tiktok(L_pro) {
+    const load_width=parseFloat(L_pro.width);//load宽度
+    let load_time=15;//加载时间
+    let load_ftp=24;////刷新率
+    if(L_pro.ftp){
+      load_ftp = L_pro.ftp;//刷新率
+    }
+    if(L_pro.time){
+      load_time = L_pro.time;
+    }
+    const chang_width = load_width/load_time/load_ftp;//每次的变化长度
+    const that = this;
+    let N_progress = 0;
+    var Dload_r = document.getElementById('load_r');
+    var Dload_jt = document.getElementById('load_jt');
+    var progress = parseFloat(N_progress);//获取初始值
+    var timer = window.setInterval(() => {
+      if(progress < load_width){
+        if(loadFinishFlag && !sendLoadStatus){
+          sendLoadStatus = true;
+          ipcRenderer.send('loadStatus','1');
+          window.setTimeout(function(){
+            progress=load_width;
+            window.clearInterval(timer);;
+          },5000)
+          // return
+        };
+        progress += chang_width;
+        Dload_r.style.left = (progress-2.34)+'vw';
+        Dload_jt.style.width = progress+'vw';
+      }else if(progress >= load_width && !sendLoadStatus){//加载完成
+        sendLoadStatus = true;
+        ipcRenderer.send('loadStatus','1');
+        window.clearInterval(timer);
+        window.setTimeout(function(){
+          remote.getCurrentWindow().close();
+        },400)
+
+      }
+    }, 1000/load_ftp);
+  }
+
+
+</script>
+</body>
+
+</html>
+

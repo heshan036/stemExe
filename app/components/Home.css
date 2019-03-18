@@ -1,0 +1,240 @@
+.home_wrapper{
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: url('../resource/images/home_bg1.png') center bottom no-repeat;
+    background-size: 100% auto;
+    position: relative;
+    -webkit-app-region: no-drag;
+}
+
+.home_img1{position: absolute;left: -2vw;top:20%;width: 14vw}
+.home_freeTial_remind{position: absolute;right: 0;width: 5vw;top:14vh;cursor: pointer;}
+
+.homeHeader{display: flex;justify-content: space-between;align-items: center;padding:3vh 3vw;-webkit-app-region: drag}
+
+.homeHeader .header_l{
+  color:#fff;
+  background: rgba(255,255,255,0.2);
+  height: 5.312vw;
+  line-height:5.312vw;
+  border-radius: 4vmax;
+  display: inline-block;
+  -webkit-app-region: no-drag;
+
+}
+  .homeHeader .header_l img {
+    /*    width: 48px;
+    height: 48px;*/
+    position: absolute;
+    width: 5.312vw;
+    height: 5.312vw;
+    border-radius: 50%;
+    border: 2px solid #fff;
+  }
+.homeHeader .header_l b{font-weight:100;}
+.homeHeader .header_r{
+    position: absolute;
+    overflow: hidden;
+    -webkit-app-region: no-drag;
+    right: 1.458vw;
+    display: flex;
+    align-items: center
+}
+
+.homeHeader .header_r a{
+    position: relative;
+    height: 6.729vw;
+    display: block;
+}
+.homeHeader .header_r a img{
+   position: relative;
+/*   width:4.322vw;*/
+   width: auto;
+   height:3.64vw;
+   margin-top: .52vw;
+   transition: all 0.4s ease 0s;
+}
+.homeHeader .header_r a:hover img{
+    margin-top: 0px;
+}
+.homeHeader .header_r a p{
+/*    top: 2.447vw;*/
+    top:4.2vw;
+    height: 2.343vw;
+    display: block;
+    line-height:2.343vw;
+    color: #fff;
+    font-size: 1.458vw;
+}
+.menu_link{margin-right:2.46vw;display: inline-block;text-align: center;cursor: pointer}
+/*.menu_link img{max-width: 50px;max-height: 40px; }*/
+.homeHeader .header_r .h_btn_group{
+    overflow: hidden;
+    color: #fff;
+}
+.header_r span{
+  width: 3.64vw;
+  height:  3.64vw;
+  margin-top: -1.82vw;
+  color:#fff;
+  border-radius: 50%;
+  line-height:  3.64vw;
+  text-align: center;
+  background: rgba(255,255,255,0.2);
+  margin-left:1vw;
+  cursor: pointer
+}
+.header_r>.home_jian>i{
+    font-size: 3vw;
+}
+.header_r span i{
+    font-size: 2.2vw;
+}
+.homeHeader .header_r .h_btn_group span i{
+/*    font-size: 22px;*/
+    font-size: 1.145vw;
+}
+.dropdown_link {
+  padding: 0 3.125vw 0 7.603vw;
+  font-size: 14px
+}
+.dropdown_link > b {
+    font-size:1.458vw;
+  }
+.home_con {
+    top: 50%;
+    width: 90vw;
+    height: 32.235vw;
+    margin-left: 5vw;
+    position: absolute;
+    margin-top: -13.15vw;
+  }
+.home_navBox{display: flex !important;flex-direction: column;justify-content: space-between}
+.home_nav{position: relative;}
+.home_nav img{width: 100%; -webkit-border-radius: 15% 9.6%;transition: all 0.5s ease 0s;cursor: pointer}
+.home_nav_img{width: 100%; -webkit-border-radius: 19.25% 16.8%;}
+.home_nav img:hover{
+    transform:scale(1.06,1.09);
+/*    -webkit-box-shadow:0px 3px 5px RGBA(0,0,0,.6);
+    -moz-box-shadow: 0px 3px 5px RGBA(0,0,0,.6);*/
+}
+.home_nav img:active{
+  transition:all 0s;
+  transform:scale(.9,.92547);
+}
+
+@keyframes myfirst3{
+    0%{
+        transform:scale(1,1);
+    }
+    100%{
+
+        transform:scale(1.06,1.09);
+    }
+
+}
+@keyframes myfirst{
+    0%{
+        transform:scale(1.1,1.14);
+    }
+    25%{
+
+        transform:scale(.95,.98);
+    }
+    50%{
+
+        transform:scale(1.08,1.11);
+    }
+    75%{
+
+        transform:scale(.99,1.01);
+    }
+    100%{
+
+        transform:scale(1.06,1.09);
+    }
+
+}
+@keyframes myfirst2{
+    0%{
+       transform:scale(1,1);
+    }
+    30%{
+        transform:scale(1.05,1.07);
+
+    }
+    55%{
+        transform:scale(.95,.87);
+
+    }
+    75%{
+        transform:scale(1.02,1.05);
+
+    }
+    90%{
+        transform:scale(.97,.92);
+
+    }
+    100%{
+       transform:scale(1,1);
+    }
+
+}
+
+.contact{
+    position: fixed;
+    right:5.4vw;
+    bottom:1vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center
+}
+.contact p{text-align: center;cursor: pointer;padding:0 0.4vw;margin-right: 0.48vw}
+.contact img{height: 6vh}
+.contact span{font-size: 1.06vw;font-weight: lighter}
+
+.coursePlan{
+    margin-bottom:24px;
+    position: relative;
+    height:27vw;
+}
+
+.coursePlan > img{
+    width: 100%;
+    height:100%
+}
+
+.coursePlan figcaption{
+    position: absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    background: rgba(0,0,0,0.6);
+    color:#fff;
+    z-index: 1;
+    padding:0.8vh 1.2vw
+}
+
+.coursePlan figcaption span{
+    position: absolute;
+    display: inline-block;
+    color: #fff;
+    right: 1.2vw;
+    bottom: 1.6vh;
+    padding: 0 1.2vw;
+    line-height: 3.2vh;
+    height: 3.2vh;
+    border-radius: 1.6vh;
+}
+
+.coursePlan h2{
+    font-size: 1.8vw;
+    color:#fff;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis
+}
+
+.coursePlan figcaption p{font-size: 1.06vw;font-weight:lighter}
+

@@ -1,0 +1,66 @@
+
+.center_modalCon{
+  /*padding:4vh 4vw*/
+  /*width: 36.4583vw;*/
+  /*padding: 4vh 13.177vw;*/
+  padding: 4vh 9.83vw;
+}
+
+.popupsWrapper{
+  position: fixed;left: 0;top: 0;height:100vh;width: 100vw;z-index: 100;
+
+}
+.popupsClose{position: absolute;color: #fff;right: 0;top:0;cursor: pointer;padding:10px;z-index: 10}
+.popupsBg{position:absolute;z-index: 0;background: rgba(0,0,0,0.4);top:0;left: 0;bottom: 0;right: 0}
+.popupsBox{
+  position:absolute;
+  z-index: 10;
+  background:#fff;
+  left: 50%;
+  top: 50%;
+  width: 46.875vw;
+  /*width: 62.8125vw;*/
+  transform: translate(-50%,-50%);
+  border-radius:10px;
+  /* overflow: hidden */
+}
+.modalTitle1{
+  text-align: center;
+  color: #fff;
+  background-color: #fff;
+  padding:1.197vw 0 56px;
+  background-image: url('../../resource/images/modal1_titleBg_Big.jpg');
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-bottom: 0
+}
+.modalTitle2{
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  text-align: center;
+  position: relative;
+  color: #fff;
+  height: 12vh;
+  line-height: 12vh;
+  background-color:#209aff;
+  background-image: url('../../resource/images/system_bg.png');
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  background-size: 94% auto;
+  margin-bottom: 0
+}
+.pin{position: absolute;width: 36px;top: -24px;left:10%;}
+.mainPop h2 b {
+  font-size: 2.1875vw;
+  font-weight: 500;
+}
+.mainPop h2 p {
+  font-weight: lighter;
+  margin-bottom: 0;
+  font-size: 1.354vw;
+}
+
+

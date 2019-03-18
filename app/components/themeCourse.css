@@ -1,0 +1,135 @@
+.downAll{
+  position: absolute;
+  /*right:5vw;*/
+  right:3vw;
+  text-align: right;
+  cursor: pointer;
+  color: #fff;
+  margin-bottom:-2.7vh;
+  font-size: 14px;
+  padding-left:1vw;
+  margin-top:2vh;
+  width: 11.4583vw;
+  height: 2.8125vw;
+  -webkit-border-radius: 1.40625vw;
+  background-color: #48acff;
+  color:#fff;
+  font-size: 1.25vw;
+  text-align:center;
+  line-height:2.8125vw;
+  background-image: url('../resource/images/ther_but.png');
+  background-position:left;
+  background-repeat: no-repeat;
+  background-size:auto 100%;
+}
+.downAll:hover{
+  background-color: #1890ff;
+}
+.history_tag{
+  content:'';
+  display: block;
+  border:2.4vh solid transparent;
+  position: absolute;
+  border-right-color:#ffad00;
+  border-top-color:#ffad00;
+  top:0;
+  right:0;
+  z-index: 1;
+  z-index: 3;
+}
+.history_tag::before,.history_tag::after{
+  display: block;
+  position: absolute;
+  line-height: 1;
+  font-size: 1.4vh;
+  color:#fff;
+}
+.history_tag::before{
+  content:'上';
+  top:-2.2vh;
+  right:-1vh
+}
+.history_tag::after{
+  content:'次';
+  bottom:-0.8vh;
+  right:-2vh
+}
+
+.local_tag{
+  position: absolute;
+  z-index: 9;
+  bottom:5px;
+  line-height: 20px;
+  right:5px;
+  background:#ff8d2d;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  margin-bottom: 0;
+  text-align: center;
+
+}
+.local_tag i{color: #fff;line-height: 1;font-size: 12px}
+.downloading_tag,.pause_tag{
+  position: absolute;
+  top:0;
+  right: 0;
+  bottom:0;
+  left: 0;
+  z-index: 9;
+  margin-bottom:0;
+  text-align: center;
+  cursor: pointer
+}
+.downloading_tag{background: rgba(0,122,189,0.5);}
+.pause_tag{background: rgba(0,122,189,0.5);}
+.progressCircle{
+  position: absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  line-height:48px !important;
+}
+.progressCircle span{
+  color:#fff !important;
+  line-height: inherit !important;
+}
+.progressCircle svg path:nth-child(2){stroke: #e79800;}
+.pause_tag span{
+  line-height: 30px;
+  position: absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.pauseloading{
+  background: #fff;
+
+}
+.pauseloading i{color:#333}
+.videoLink>a>div>div:nth-child(1){
+  position: relative;
+  overflow: hidden;
+}
+.videoLink>a>div>div>img{
+  width:100%;
+  /* height: auto; */
+  /*background: #fff;*/
+}
+
+/*大于800样式*/
+@media screen and (min-width: 801px){
+  .videoLink>a>div>div:nth-child(1){
+    height: 16vh;
+  }
+}
+/*小于800样式*/
+@media screen and (max-width: 800px) {
+  .videoLink>a>div>div:nth-child(1){
+    height: 18vh;
+  }
+}
