@@ -161,7 +161,7 @@ class ScanCode extends Component{
         this.setState({
             loadingFlag:true
         });
-        if(fs.existsSync(path.join(platformAPI.txtBasePath,'specialCourse.json')) && fs.existsSync(path.join(platformAPI.txtBasePath,'themeCourse.json'))){
+        if( fs.existsSync(path.join(platformAPI.txtBasePath,'themeCourse_stem.json'))){
             return
         };
         API.downData((progress)=>{

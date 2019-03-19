@@ -58,6 +58,16 @@ class Home extends Component{
         //弹出30天倒计时提醒
         that.expiryRemind();
 
+        // 如果有网络，则下载主题课程数据
+        if(navigator.onLine){
+            try{
+              API.getThemeCourse([that.curCategoryId]);
+            //   API.getCourseFileLog(2);
+            }catch(err){
+              console.log(err)
+            }
+        }
+
          // 'globalDatas'为判断是否为loading页面跳转，如果是值为1，则判断时从loading来，避免每次进入首页都要运行此方法
         if(remote.getGlobal('globalDatas').loadFlag === 1){
             that.LoadingFromUpdate();
@@ -76,15 +86,15 @@ class Home extends Component{
         console.log('LoadingFromUpdate')
         //判断是否携带版本更新信息
         if(remote.getGlobal('globalDatas').updateAppInfo){
-        const updateAppInfo=remote.getGlobal('globalDatas').updateAppInfo;
-        that.setState({
-            updateDesc:updateAppInfo.desc,
-            modalVisible:true,
-            modalWith:540,
-            modalTitle:'发现新版本' + updateAppInfo.versionName,
-            updateAppUrl:updateAppInfo.appUrl,
-            updateVersion:updateAppInfo.versionName,
-        })
+            const updateAppInfo=remote.getGlobal('globalDatas').updateAppInfo;
+            that.setState({
+                updateDesc:updateAppInfo.desc,
+                modalVisible:true,
+                modalWith:540,
+                modalTitle:'发现新版本' + updateAppInfo.versionName,
+                updateAppUrl:updateAppInfo.appUrl,
+                updateVersion:updateAppInfo.versionName,
+            })
         }
         // 无取消体验期点击记录，无体验期记录，则自动弹窗提醒
         if(!storeAPI.get('freeTrialConcel') && !storeAPI.getObject('freeTrial') && !oneActUseFlag){
@@ -105,6 +115,7 @@ class Home extends Component{
 
         // 将'loadFlag'的状态变为0
         remote.getGlobal('globalDatas').loadFlag = 0;
+
     }
 
     // 体验激活判断
@@ -215,10 +226,11 @@ class Home extends Component{
                 }
                 <header className={styles.homeHeader}>
                     <div className={styles.header_l} style={{cursor:that.state.netStatus ? 'pointer':'default'}}>
+                        云宝贝传统文化
                     </div>
                     <div className={styles.header_r}>
-                        <Link to="/systemInfo" className={styles.menu_link}><img src="./resource/images/home_setting2.png" alt="设置"/><p>设置</p></Link>
-                        <span onClick={this.hideWin}><i className="iconfont icon-jian" style={{fontSize:'3.2vw'}}></i></span>
+                        <Link to="/systemInfo" className={styles.menu_link}><img src="./resource/images/home_setting.png" alt="设置"/><p>设置</p></Link>
+                        <span onClick={this.hideWin}><i className="iconfont icon-jian" style={{fontSize:'2.2vw'}}></i></span>
                         <span onClick={()=>{
                             that.setModalState('systemFirm')
                         }}>
@@ -228,28 +240,34 @@ class Home extends Component{
                 </header>
                 <div className={styles.home_con}>
                     <Row type="flex" justify="space-between">
-                        <Col span={6} className={styles.home_navBox}>
+                        <Col span={7} className={styles.home_navBox}>
                             <div className={styles.home_nav} onClick={()=>this.toStemCourse(1)}>
-                                <img className={styles.home_nav_img} src="./resource/images/home_nav4.png" alt="小班上级"/>
+                                <img className={styles.home_nav_img} src="./resource/images/home_xs.png" alt="小班上级"/>
+                                <span>第一级(小上)</span>
+                            </div>
+                            <div className={styles.home_nav} onClick={()=>this.toStemCourse(2)}>
+                                <img className={styles.home_nav_img} src="./resource/images/home_xx.png" alt="小班下级"/>
+                                <span>第二级(小下)</span>
+                            </div>
+                        </Col>
+                        <Col span={7} offset={1} className={styles.home_navBox}>
+                            <div className={styles.home_nav} onClick={()=>this.toStemCourse(3)}>
+                                <img className={styles.home_nav_img} src="./resource/images/home_zs.png" alt="中班上级"/>
+                                <span>第三级(中上)</span>
                             </div>
                             <div className={styles.home_nav} onClick={()=>this.toStemCourse(4)}>
-                                <img className={styles.home_nav_img} src="./resource/images/home_nav5.png" alt="小班下级"/>
+                                <img className={styles.home_nav_img} src="./resource/images/home_zx.png" alt="中班下级"/>
+                                <span>第四级(中下)</span>
                             </div>
                         </Col>
-                        <Col span={6} offset={1} className={styles.home_navBox}>
-                            <div className={styles.home_nav} onClick={()=>this.toStemCourse(2)}>
-                                <img className={styles.home_nav_img} src="./resource/images/home_nav4.png" alt="中班上级"/>
-                            </div>
+                        <Col span={7} offset={1} className={styles.home_navBox}>
                             <div className={styles.home_nav} onClick={()=>this.toStemCourse(5)}>
-                                <img className={styles.home_nav_img} src="./resource/images/home_nav5.png" alt="中班下级"/>
-                            </div>
-                        </Col>
-                        <Col span={6} offset={1} className={styles.home_navBox}>
-                            <div className={styles.home_nav} onClick={()=>this.toStemCourse(3)}>
-                                <img className={styles.home_nav_img} src="./resource/images/home_nav4.png" alt="大班上级"/>
+                                <img className={styles.home_nav_img} src="./resource/images/home_ds.png" alt="大班上级"/>
+                                <span>第五级(大上)</span>
                             </div>
                             <div className={styles.home_nav} onClick={()=>this.toStemCourse(6)}>
-                                <img className={styles.home_nav_img} src="./resource/images/home_nav5.png" alt="大班下级"/>
+                                <img className={styles.home_nav_img} src="./resource/images/home_dx.png" alt="大班下级"/>
+                                <span>第六级(大下)</span>
                             </div>
                         </Col>
                     </Row>

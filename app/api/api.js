@@ -156,9 +156,7 @@ class API extends Server {
         'term':0,
         'picType':4,
         'resType':3,
-        'themeSifting':{
-          TRADITIONAL:1
-        }
+        'themeSifting':'TRADITIONAL'
       }
       try{
         that.requestNet('GetThemeCourseListReq',reqParams,1,async (res)=>{
@@ -177,7 +175,7 @@ class API extends Server {
                 };
               }
             };
-            const t = await platformAPI.createFile('localData','themeCourse.json',JSON.stringify(themeCourseRSP));
+            const t = await platformAPI.createFile('localData','themeCourse_stem.json',JSON.stringify(themeCourseRSP));
             console.log(themeCourseRSP);
             resolve(themeCourseRSP)
           }else{

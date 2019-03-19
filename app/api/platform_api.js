@@ -357,6 +357,7 @@ export const platformAPI= {
           if (!error) {
             resolve(data);
           }else{
+            fs.unlinkSync(filepath)
             resolve(0)
           }
         });

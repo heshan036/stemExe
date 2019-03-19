@@ -3,7 +3,6 @@ import cookie from '../cookie/cookie';
 import {netReqUrl} from './networkReq';
 import {message} from 'antd';
 import {remote} from 'electron';
-// import {dbputValue} from './ybstorage';
 /**
  * 主要params参数
  * @params method {string} 方法名

@@ -15,12 +15,10 @@
 
 .homeHeader .header_l{
   color:#fff;
-  background: rgba(255,255,255,0.2);
-  height: 5.312vw;
   line-height:5.312vw;
-  border-radius: 4vmax;
   display: inline-block;
   -webkit-app-region: no-drag;
+  font-size: 1.6vw
 
 }
   .homeHeader .header_l img {
@@ -74,22 +72,20 @@
     color: #fff;
 }
 .header_r span{
-  width: 3.64vw;
-  height:  3.64vw;
+  width: 2.6vw;
+  height:  2.6vw;
   margin-top: -1.82vw;
   color:#fff;
   border-radius: 50%;
-  line-height:  3.64vw;
+  line-height:  2.6vw;
   text-align: center;
   background: rgba(255,255,255,0.2);
   margin-left:1vw;
   cursor: pointer
 }
-.header_r>.home_jian>i{
-    font-size: 3vw;
-}
+
 .header_r span i{
-    font-size: 2.2vw;
+    font-size: 1.4vw;
 }
 .homeHeader .header_r .h_btn_group span i{
 /*    font-size: 22px;*/
@@ -110,17 +106,24 @@
     top:50%;
     transform: translate(-50%,-50%)
   }
-.home_nav{position: relative;margin-bottom:4.8vh}
-.home_nav img{width: 100%; -webkit-border-radius: 15% 9.6%;transition: all 0.5s ease 0s;cursor: pointer}
-.home_nav_img{width: 100%; -webkit-border-radius: 19.25% 16.8%;}
-.home_nav img:hover{
+.home_nav{position: relative;margin-bottom:3.2vh;padding:0 1vw}
+.home_nav *{width: 100%; transition: all 0.5s ease 0s;cursor: pointer}
+.home_nav:hover *{
     transform:scale(1.06,1.09);
-/*    -webkit-box-shadow:0px 3px 5px RGBA(0,0,0,.6);
-    -moz-box-shadow: 0px 3px 5px RGBA(0,0,0,.6);*/
 }
 .home_nav img:active{
   transition:all 0s;
-  transform:scale(.9,.92547);
+  transform:scale(.9,.92547);   
+}
+
+.home_nav span{
+    position: absolute;
+    bottom:1.4vh;
+    left:0;
+    right: 0;
+    text-align: center;
+    color: #fff;
+    font-size: 2.2vw
 }
 
 @keyframes myfirst3{
@@ -189,7 +192,7 @@
     flex-direction: row;
     align-items: center
 }
-.contact p{text-align: center;cursor: pointer;padding:0 0.4vw;margin-right: 0.48vw}
+.contact p{text-align: center;cursor: pointer;padding:0 1vw;margin-right: 0.72vw}
 .contact img{height: 8.4vh}
 .contact span{font-size: 1.06vw;font-weight: lighter}
 

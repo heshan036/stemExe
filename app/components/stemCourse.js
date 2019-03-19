@@ -148,14 +148,14 @@ class ThemeCourse extends Component{
     const that=this;
     const basePath=platformAPI.stemResBasePath;
     let localList = await platformAPI.getLocalCourse(basePath); //获取本地下载课件
-    let themeCourse_HID=await platformAPI.readFile('localData','themeCourse_HID.json');
+    let themeCourse_HID=await platformAPI.readFile('localData','themeCourse_stem_HID.json');
     let themeFileLog= await platformAPI.readFile('localData','courseFileLog_2.json');
     // 上次点击历史
     if(themeCourse_HID !== 0){
       try{
         that.themeCourseHID = JSON.parse(themeCourse_HID);
       }catch(err){
-        let filePath=path.join(platformAPI.fileBasePath,'themeCourse_HID.json');
+        let filePath=path.join(platformAPI.fileBasePath,'themeCourse_stem_HID.json');
         if(fs.existsSync(filePath)){
           fs.unlinkSync(filePath);
         };
@@ -193,7 +193,7 @@ class ThemeCourse extends Component{
     const curPaning = 1;
     let mainList;
     let curCategoryId = that.curCategoryId;
-    let course=await this.getCourseItemList();
+    let course = await this.getCourseItemList();
     console.log(course)
     if(!course){
       return
@@ -274,7 +274,7 @@ class ThemeCourse extends Component{
     const that=this;
     let course=null;
     let reqFlag=false; //是否需要重新进行网络请求获取数据
-    let result=await platformAPI.readFile('localData','themeCourse.json');
+    let result = await platformAPI.readFile('localData','themeCourse_stem.json');
     // 优先读取本地课程数据，当本地没有数据时读取网络数据
     if(result !== 0){
       that.setState({
@@ -282,38 +282,30 @@ class ThemeCourse extends Component{
       });
       try{
         course = JSON.parse(result);
-        // 如果有网络，则下载主题课程数据
-        if(navigator.onLine){
-          try{
-            API.getThemeCourse([that.curCategoryId]);
-          }catch(err){
-            console.log(err)
-          }
-        }
         return course;
       }catch(err){
+        fs.unlinkSync(path.join(platformAPI.txtBasePath,'themeCourse_stem.json'))
         reqFlag=true;
       };
     }else{
       reqFlag=true;
     };
     //如果本地没有数据，则重新下载
-    try{
-      that.setState({
-        spinTxt:'下载数据中，请保持网络通畅'
-      });
-      course = await API.getThemeCourse();
-      return course;
-    }catch(err){
-      that.setState({
-        network:false,
-        refreshLoading:false
-      });
-      console.log(err);
-      return course;
-    }
     if(reqFlag){
-
+      try{
+        that.setState({
+          spinTxt:'下载数据中，请保持网络通畅'
+        });
+        course = await API.getThemeCourse();
+        return course;
+      }catch(err){
+        that.setState({
+          network:false,
+          refreshLoading:false
+        });
+        console.log(err);
+        return course;
+      }
     }
   }
 
@@ -336,35 +328,6 @@ class ThemeCourse extends Component{
     let curCategoryId=this.curCategoryId;
     let version_File= await platformAPI.readFile(path.join('ZTKC',code),'version.json'); //获取本地课程版本号
     let version_local =version_File ?  JSON.parse(version_File).version : versionNum;
-
-    // let versionArr =that.themeFileLog && typeof that.themeFileLog.logList === 'array' && that.themeFileLog.logList.filter(x=>{
-    //   return x.fileCode === code;
-    // }).map(val=>{return val.versionNum}).sort(function(){
-    //   return function(a,b){
-    //     return a - b
-    //   }
-    // });
-
-    console.log(version_local)
-    // 查看本地版本是否在历史版本里
-    // if(versionArr.length < 1 || !versionArr.includes(version_local)){
-    //   Modal.confirm({
-    //     title: '课件当前版本号错误，请联网下载最新课件',
-    //     okText: '立即下载',
-    //     cancelText: '取消',
-    //     onCancel(){},
-    //     onOk(){
-    //       if(navigator.onLine){
-    //         that.downVideo(url,id,code,versionNum)
-    //       }else{
-    //         message.warning('当前网络不可用，请检查您的网络设置');
-    //       }
-    //     }
-    //   });
-    //   return
-    // };
-    console.log('versionNum'+versionNum);
-    console.log('version_local'+version_local)
     // 查看本地版本是否为最新版本
     if(versionNum !== version_local){
       Modal.confirm({
@@ -382,7 +345,7 @@ class ThemeCourse extends Component{
           });
           // 将本次打开ID缓存，作为‘上次’打开标识
           that.themeCourseHID=Object.assign({},that.themeCourseHID,{[curCategoryId]:id.toString()});
-          platformAPI.createFile('localData','themeCourse_HID.json',JSON.stringify(that.themeCourseHID));
+          platformAPI.createFile('localData','themeCourse_stem_HID.json',JSON.stringify(that.themeCourseHID));
           that.setState({
             mainList
           });
@@ -408,7 +371,7 @@ class ThemeCourse extends Component{
     });
     // 将本次打开ID缓存，作为‘上次’打开标识
     that.themeCourseHID=Object.assign({},that.themeCourseHID,{[curCategoryId]:id.toString()});
-    platformAPI.createFile('localData','themeCourse_HID.json',JSON.stringify(that.themeCourseHID));
+    platformAPI.createFile('localData','themeCourse_stem_HID.json',JSON.stringify(that.themeCourseHID));
     that.setState({
       mainList
     });

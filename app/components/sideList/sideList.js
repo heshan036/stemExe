@@ -8,11 +8,7 @@ import styles from  './sideList.css';
 const {ipcRenderer} = require('electron');
 const { Meta } = Card;
 
-type Props = {
-
-};
-
-class SideList extends Component<Props>{
+class SideList extends Component{
   // props: Props;
 
   constructor(props){

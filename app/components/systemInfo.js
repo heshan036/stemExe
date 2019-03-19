@@ -1,7 +1,6 @@
 import React , {Component} from 'react';
 import { history } from '../store/configureStore.dev';
 import {Button,Modal} from 'antd';
-import PropTypes from 'prop-types';
 import Header from './header/header';
 import cookie from '../cookie/cookie';
 import styles from './systemInfo.css';
@@ -9,7 +8,6 @@ import {platformAPI} from '../api/platform_api';
 import API from '../api/api';
 import Util from '../api/util';
 import {message} from 'antd/lib/index';
-import {autoUpdater} from 'electron';
 import fs from 'fs';
 import path from 'path';
 import {netReqUrl} from '../api/networkReq'
@@ -19,7 +17,6 @@ const app=require('electron').remote.app;
 import macAPI from '../api/macApi';
 import storeAPI from '../api/storeAPI';
 import { ipcRenderer, ipcMain} from 'electron';
-const confirm = Modal.confirm;
 
 const isOneAct = remote.getGlobal('globalDatas').isOneAct;
 let oneActInfo = "";
