@@ -151,10 +151,17 @@ class API extends Server {
   getThemeCourse=(act_term_valid=[])=>{
     const that=this;
     let baseNetUrl=platformAPI.baseNetUrl;
-    console.log(act_term_valid)
     return new Promise((resolve,reject)=>{
+      let reqParams = {
+        'term':0,
+        'picType':4,
+        'resType':3,
+        'themeSifting':{
+          TRADITIONAL:1
+        }
+      }
       try{
-        that.requestNet('GetThemeCourseListReq',{'term':0,'picType':4,'resType':3},1,async (res)=>{
+        that.requestNet('GetThemeCourseListReq',reqParams,1,async (res)=>{
           console.log(res)
           if(!res.rsp){
             reject(res)

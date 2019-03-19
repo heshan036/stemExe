@@ -14,7 +14,7 @@ class MainPopups extends Component{
   }
 
   onModalToggle(visibleFlag){
-      this.props.onModalToggle(visibleFlag);
+      this.props.setStateValue('formModalVisible',false);
   }
 
   render(){

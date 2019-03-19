@@ -158,7 +158,7 @@ class SystemModal extends Component{
 
   //关闭弹窗
   closeModal=(visibleFlag)=>{
-    this.props.onModalToggle(visibleFlag)
+    this.props.setStateValue('formModalVisible',false);
   }
 
   sureHandle=()=>{

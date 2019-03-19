@@ -22,7 +22,7 @@ class Header extends Component{
       formModalVisible: false
       
     };
-    this.setFormModalVisible=this.setFormModalVisible.bind(this);
+    this.setStateValue=this.setStateValue.bind(this);
     this.hideWin=this.hideWin.bind(this);
   }
   //小化
@@ -30,11 +30,11 @@ class Header extends Component{
     ipcRenderer.send('hide-window');
   }
 
-  setFormModalVisible(visibleFlag) {
-    console.log(visibleFlag)
-    this.setState({
-      formModalVisible:visibleFlag
-    })
+  // 改变state
+  setStateValue(feild,value){
+      this.setState({
+        [feild]:value
+      })
   }
 
   backHandle(){
@@ -62,13 +62,13 @@ class Header extends Component{
         <h1>{this.props.children}</h1>
         <p className={styles.h_btn_group}>
           <span onClick={this.hideWin}><i className="iconfont icon-jian"></i></span>
-          <span onClick={()=>{this.formMolalType = "systemFirm";this.setFormModalVisible(true)}}><i className="iconfont icon-cha"></i></span>
+          <span onClick={()=>{this.formMolalType = "systemFirm";this.setStateValue('formModalVisible',true)}}><i className="iconfont icon-cha"></i></span>
         </p>
         <MainPopups
         formModalVisible={this.state.formModalVisible}
-        onModalToggle={this.setFormModalVisible}
+        setStateValue={this.setStateValue}
         modalType={this.formMolalType}>
-          {this.formMolalType === "systemFirm" && <SystemModal onModalToggle={that.setFormModalVisible} systemType="systemFirm"></SystemModal>}
+          {this.formMolalType === "systemFirm" && <SystemModal setStateValue={that.setStateValue} systemType="systemFirm"></SystemModal>}
         </MainPopups>
       </div>
     )

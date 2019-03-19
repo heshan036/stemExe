@@ -104,14 +104,13 @@
   }
 .home_con {
     top: 50%;
-    width: 90vw;
-    height: 32.235vw;
-    margin-left: 5vw;
+    width: 80%;
     position: absolute;
-    margin-top: -13.15vw;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%)
   }
-.home_navBox{display: flex !important;flex-direction: column;justify-content: space-between}
-.home_nav{position: relative;}
+.home_nav{position: relative;margin-bottom:4.8vh}
 .home_nav img{width: 100%; -webkit-border-radius: 15% 9.6%;transition: all 0.5s ease 0s;cursor: pointer}
 .home_nav_img{width: 100%; -webkit-border-radius: 19.25% 16.8%;}
 .home_nav img:hover{
@@ -191,7 +190,7 @@
     align-items: center
 }
 .contact p{text-align: center;cursor: pointer;padding:0 0.4vw;margin-right: 0.48vw}
-.contact img{height: 6vh}
+.contact img{height: 8.4vh}
 .contact span{font-size: 1.06vw;font-weight: lighter}
 
 .coursePlan{

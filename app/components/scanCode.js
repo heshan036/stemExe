@@ -44,9 +44,9 @@ class ScanCode extends Component{
         const {mac} = this.state;
         // mac地址激活扫码地址
         let qrcodeUrl = "http://h5.yunbaobei.com/box/box.do?boxCode="+mac+"&type=1";
-        //一次激活，扫码地址，测试和正式
-        let oneActTest = "http://wp.test.yunbaobei.com/wechat/action.do?action=scanBoxAct&needLogin=false&type=5&machineCode="+mac+"";
-        let oneAct = "http://wp.yunbaobei.com/wechat/action.do?action=scanBoxAct&needLogin=false&type=5&machineCode="+mac+"";
+        //一次激活，扫码地址，测试和正式,type为55时为主题课程传统文化
+        let oneActTest = "http://wp.test.yunbaobei.com/wechat/action.do?action=scanBoxAct&needLogin=false&type=55&machineCode="+mac+"";
+        let oneAct = "http://wp.yunbaobei.com/wechat/action.do?action=scanBoxAct&needLogin=false&type=55&machineCode="+mac+"";
         if(isOneAct){
             qrcodeUrl = oneAct;
         };

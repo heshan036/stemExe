@@ -26,7 +26,8 @@ class Home extends Component{
             freeTialFlag:storeAPI.getObject('freeTrial') ? true : false,
         }
         this.setStateValue = this.setStateValue.bind(this);
-        this.setModalState = this.setModalState.bind(this)
+        this.setModalState = this.setModalState.bind(this);
+        this.toStemCourse = this.toStemCourse.bind(this)
     };
 
     componentWillMount(){
@@ -173,6 +174,10 @@ class Home extends Component{
         ipcRenderer.send('updateAppUrl',this.state.updateAppUrl);
         history.push('/systemInfo')
     }
+
+    toStemCourse(categary){
+        history.push('/stemCourse/'+categary+'')
+    }
     
     // 改变state
     setStateValue(feild,value){
@@ -182,9 +187,9 @@ class Home extends Component{
     }
     
     setModalState(value){
-        that.formMolalType=value;
-        that.systemType=value;
-        that.setStateValue('formModalVisible',true)
+        this.formMolalType=value;
+        this.systemType=value;
+        this.setStateValue('formModalVisible',true)
     }
 
     render(){
@@ -212,39 +217,38 @@ class Home extends Component{
                     <div className={styles.header_l} style={{cursor:that.state.netStatus ? 'pointer':'default'}}>
                     </div>
                     <div className={styles.header_r}>
-                        <a onClick={()=>shell.openExternal('https://mp.weixin.qq.com/mp/homepage?__biz=MzU5MjA1NjkzNw==&hid=3&sn=aa14112cf21b0c8fad817f483346b096')} className={styles.menu_link}><img src="./resource/images/home_question.png" alt="常见问题"/><p>常见问题</p></a>
                         <Link to="/systemInfo" className={styles.menu_link}><img src="./resource/images/home_setting2.png" alt="设置"/><p>设置</p></Link>
                         <span onClick={this.hideWin}><i className="iconfont icon-jian" style={{fontSize:'3.2vw'}}></i></span>
                         <span onClick={()=>{
                             that.setModalState('systemFirm')
-                        }>
+                        }}>
                             <i className="iconfont icon-cha"></i>
                         </span>
                     </div>
                 </header>
                 <div className={styles.home_con}>
-                    <Row type="flex">
-                        <Col span={5} offset={1} className={styles.home_navBox}>
-                            <div className={styles.home_nav} onClick={()=>this.toResource(0)}>
+                    <Row type="flex" justify="space-between">
+                        <Col span={6} className={styles.home_navBox}>
+                            <div className={styles.home_nav} onClick={()=>this.toStemCourse(1)}>
                                 <img className={styles.home_nav_img} src="./resource/images/home_nav4.png" alt="小班上级"/>
                             </div>
-                            <div className={styles.home_nav} onClick={()=>this.toResource(1)}>
+                            <div className={styles.home_nav} onClick={()=>this.toStemCourse(4)}>
                                 <img className={styles.home_nav_img} src="./resource/images/home_nav5.png" alt="小班下级"/>
                             </div>
                         </Col>
-                        <Col span={5} offset={1} className={styles.home_navBox}>
-                            <div className={styles.home_nav} onClick={()=>this.toResource(0)}>
+                        <Col span={6} offset={1} className={styles.home_navBox}>
+                            <div className={styles.home_nav} onClick={()=>this.toStemCourse(2)}>
                                 <img className={styles.home_nav_img} src="./resource/images/home_nav4.png" alt="中班上级"/>
                             </div>
-                            <div className={styles.home_nav} onClick={()=>this.toResource(1)}>
+                            <div className={styles.home_nav} onClick={()=>this.toStemCourse(5)}>
                                 <img className={styles.home_nav_img} src="./resource/images/home_nav5.png" alt="中班下级"/>
                             </div>
                         </Col>
-                        <Col span={5} offset={1} className={styles.home_navBox}>
-                            <div className={styles.home_nav} onClick={()=>this.toResource(0)}>
+                        <Col span={6} offset={1} className={styles.home_navBox}>
+                            <div className={styles.home_nav} onClick={()=>this.toStemCourse(3)}>
                                 <img className={styles.home_nav_img} src="./resource/images/home_nav4.png" alt="大班上级"/>
                             </div>
-                            <div className={styles.home_nav} onClick={()=>this.toResource(1)}>
+                            <div className={styles.home_nav} onClick={()=>this.toStemCourse(6)}>
                                 <img className={styles.home_nav_img} src="./resource/images/home_nav5.png" alt="大班下级"/>
                             </div>
                         </Col>
@@ -252,16 +256,16 @@ class Home extends Component{
                 </div>
                 <MainPopups
                 formModalVisible={this.state.formModalVisible}
-                onModalToggle={this.setFormModalVisible}
+                setStateValue={this.setStateValue}
                 modalType={this.formMolalType}>
-                {this.formMolalType === "errTimeRemind" && <SystemModal onModalToggle={that.setFormModalVisible} systemType={that.systemType}></SystemModal>}
-                {this.formMolalType === "freeTrial" && <SystemModal onModalToggle={that.setFormModalVisible} systemType={that.systemType} freeTialHandle={that.freeTialHandle} setStateValue={that.setStateValue}></SystemModal>}
-                {this.formMolalType === "loginIn" && <LoginForm onModalToggle={that.setFormModalVisible}></LoginForm>}
-                {this.formMolalType === "userToggle" && <UserInfoForm onModalToggle={that.setFormModalVisible}></UserInfoForm>}
-                {this.formMolalType === "systemFirm" && <SystemModal onModalToggle={that.setFormModalVisible} systemType={that.systemType}></SystemModal>}
-                {this.formMolalType === "expiryTimeRemind" && <SystemModal onModalToggle={that.setFormModalVisible} systemType={that.systemType} codeType ={that.codeType_remind}></SystemModal>}
-                {this.formMolalType === "expiringRemind" && <SystemModal onModalToggle={that.setFormModalVisible} systemType={that.systemType} expiringCode ={that.expiringCode}></SystemModal>}
-                {this.formMolalType === "actCourse" && <SystemModal onModalToggle={that.setFormModalVisible} systemType={that.systemType}></SystemModal>}
+                {this.formMolalType === "errTimeRemind" && <SystemModal setStateValue={that.setStateValue} systemType={that.systemType}></SystemModal>}
+                {this.formMolalType === "freeTrial" && <SystemModal setStateValue={that.setStateValue} systemType={that.systemType} freeTialHandle={that.freeTialHandle} setStateValue={that.setStateValue}></SystemModal>}
+                {this.formMolalType === "loginIn" && <LoginForm setStateValue={that.setStateValue}></LoginForm>}
+                {this.formMolalType === "userToggle" && <UserInfoForm setStateValue={that.setStateValue}></UserInfoForm>}
+                {this.formMolalType === "systemFirm" && <SystemModal setStateValue={that.setStateValue} systemType={that.systemType}></SystemModal>}
+                {this.formMolalType === "expiryTimeRemind" && <SystemModal setStateValue={that.setStateValue} systemType={that.systemType} codeType ={that.codeType_remind}></SystemModal>}
+                {this.formMolalType === "expiringRemind" && <SystemModal setStateValue={that.setStateValue} systemType={that.systemType} expiringCode ={that.expiringCode}></SystemModal>}
+                {this.formMolalType === "actCourse" && <SystemModal setStateValue={that.setStateValue} systemType={that.systemType}></SystemModal>}
                 </MainPopups>
                     {/* 更新提示 */}
                 <Modal

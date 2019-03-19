@@ -121,6 +121,8 @@
   /*background: #fff;*/
 }
 
+
+
 /*大于800样式*/
 @media screen and (min-width: 801px){
   .videoLink>a>div>div:nth-child(1){
@@ -133,3 +135,4 @@
     height: 18vh;
   }
 }
+

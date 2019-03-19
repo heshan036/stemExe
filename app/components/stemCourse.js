@@ -1,22 +1,15 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import {Link} from 'react-router-dom';
 import path from 'path';
 import fs from 'fs';
-import md5 from 'md5';
 import { history } from '../store/configureStore';
 import {remote,ipcRenderer} from 'electron';
 import {Row,Col,Card,Pagination,Button,Spin,message,Select,Progress,Modal} from 'antd';
 import API from '../api/api';
-import storeAPI from '../api/storeAPI';
 import {platformAPI} from '../api/platform_api';
 import MainPopups from './popups/popups';
-import SystemModal from './systemModal';
-import SiderBar from '../components/sideBar/sideBar';
+import Header from './header/header';
 import SiderList from '../components/sideList/sideList';
 import styles from './themeCourse.css';
-import styles_list from './sideList/sideList.css';
 import  './themeCourse.global.css';
 
 const {Menu, MenuItem} = remote;
@@ -25,15 +18,16 @@ let act_term_valid;//激活码立标，激活课件，激活学期，激活的�
 let downingList=remote.getGlobal('globalDatas').stemDowning;
 let pauseList=remote.getGlobal('globalDatas').stemPause;
 const isOneAct = remote.getGlobal('globalDatas').isOneAct;
+const upperNum = ['第一级（小上）','第二级（小下）','第三级（中上）','第四级（中下）','第五级（大上）','第六级（大下）']
 
 class ThemeCourse extends Component{
   constructor(props){
     super(props);
     console.log(props);
-    this.curCategoryId = props.categoryId;
+    this.curCategoryId = parseInt(props.match.params.categary);
     this.state={
       allowNum:3,
-      title:'主题课程',
+      title:upperNum[this.curCategoryId - 1],
       spinTxt:'',
       curCategoryName:'',
       curPaning:1,
@@ -56,12 +50,10 @@ class ThemeCourse extends Component{
     this.getCourseList=this.getCourseList.bind(this);
     this.getCourseItemList=this.getCourseItemList.bind(this);
     this.paginationHandle=this.paginationHandle.bind(this);
-    this.menuHandle=this.menuHandle.bind(this);
     this.playCourse=this.playCourse.bind(this);
     this.downVideo=this.downVideo.bind(this);
     this.downVideoAll=this.downVideoAll.bind(this);
     this.subMenuToggle=this.subMenuToggle.bind(this);
-    this.toActCourse=this.toActCourse.bind(this);
     this.lineUpDown=this.lineUpDown.bind(this);
     this.setStateValue = this.setStateValue.bind(this);
   }
@@ -200,9 +192,9 @@ class ThemeCourse extends Component{
     });
     const curPaning = 1;
     let mainList;
-    let curCategoryId=that.curCategoryId;
+    let curCategoryId = that.curCategoryId;
     let course=await this.getCourseItemList();
-
+    console.log(course)
     if(!course){
       return
     };
@@ -213,7 +205,6 @@ class ThemeCourse extends Component{
         return x
       }
     });
-    // console.log(courseList)
 
     // 判断是否上次打开，如果是，加上标识
     courseList.map( x => {
@@ -294,7 +285,7 @@ class ThemeCourse extends Component{
         // 如果有网络，则下载主题课程数据
         if(navigator.onLine){
           try{
-            API.getThemeCourse(that.curCategoryId);
+            API.getThemeCourse([that.curCategoryId]);
           }catch(err){
             console.log(err)
           }
@@ -324,21 +315,6 @@ class ThemeCourse extends Component{
     if(reqFlag){
 
     }
-  }
-
-
-  // menu切换
-  menuHandle=key=>{
-    const that=this;
-    this.curCategoryId=parseInt(key.key);
-    this.state.menuList.map(item=>{
-      if(item.categoryId === parseInt(key.key)){
-        that.setState({
-          curCategoryName:item.categoryName
-        })
-      }
-    });
-    this.getCourseList();
   }
 
   paginationHandle=(page, pageSize)=>{
@@ -577,33 +553,26 @@ class ThemeCourse extends Component{
     // });
   }
 
-  toActCourse=()=>{
-    const curCategoryId =this.curCategoryId;
-    let path = {
-      pathname:'/actCode_chose/zt_'+curCategoryId+'/0'
-    };
-    history.push(path);
+  //窗口最小化到托盘
+  hideWin(){
+          ipcRenderer.send('hide-window');
+      }
+
+  //窗口退出
+  setFormModalVisible(visibleFlag) {
+      console.log(visibleFlag)
+      this.setState({
+      formModalVisible:visibleFlag
+      })
   }
 
-    //窗口最小化到托盘
-    hideWin(){
-            ipcRenderer.send('hide-window');
-        }
+  // 改变state
+  setStateValue(feild,value){
+      this.setState({
+        [feild]:value
+      })
+  }
 
-    //窗口退出
-    setFormModalVisible(visibleFlag) {
-        console.log(visibleFlag)
-        this.setState({
-        formModalVisible:visibleFlag
-        })
-    }
-
-    // 改变state
-    setStateValue(feild,value){
-        this.setState({
-          [feild]:value
-        })
-    }
 
   render(){
     const that=this;
@@ -613,6 +582,7 @@ class ThemeCourse extends Component{
     return(
       <Spin spinning={that.state.refreshLoading} tip={this.state.spinTxt}>
         <div className="subPage">
+          
           {this.state.actFlag &&
             <SiderList
             title={this.state.title}
@@ -640,7 +610,8 @@ class ThemeCourse extends Component{
                           }
                         }
                       }
-                      span={6}
+                      md={{ span: 5, offset: index%4 === 0 ? 0 : 1 }}
+                      lg={{ span: 4, offset: index%5 === 0 ? 0 : 1  }}
                       key={item.id}
                       className="pr"
                       style={{borderRadius: "10px",overflow:"hidden",display:"block",height:"auto"}}

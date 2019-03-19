@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import { history } from '../../store/configureStore';
 import {Row,Col ,Icon,Menu,Card,Pagination,Select,Button} from 'antd';
 import MainPopups from '../popups/popups';
 import SystemModal from '../systemModal';
@@ -20,7 +21,7 @@ class SideList extends Component<Props>{
       curList:this.props.curList
     };
     this.hideWin=this.hideWin.bind(this);
-    this.setFormModalVisible=this.setFormModalVisible.bind(this);
+    this.setStateValue=this.setStateValue.bind(this);
   }
 
   //窗口最小化到托盘
@@ -28,11 +29,10 @@ class SideList extends Component<Props>{
     ipcRenderer.send('hide-window');
   }
 
-  //窗口退出
-  setFormModalVisible(visibleFlag) {
-    console.log(visibleFlag)
+  // 改变state
+  setStateValue(feild,value){
     this.setState({
-      formModalVisible:visibleFlag
+      [feild]:value
     })
   }
 
@@ -42,6 +42,7 @@ class SideList extends Component<Props>{
     return(
       <div className={styles.subList}>
         <h1>
+           <span className={styles.backBtn} onClick={()=> history.goBack()}><i className="iconfont icon-fanhui fvw43" /></span>
           {this.props.children.map((child,index)=>{
               if(child.key === 'title'){
                 return child
@@ -51,7 +52,7 @@ class SideList extends Component<Props>{
           {this.props.title}
           <p className={styles.h_btn_group}>
             <span onClick={this.hideWin}><i className="iconfont icon-jian"></i></span>
-            <span onClick={()=>{this.formMolalType = "systemFirm";this.setFormModalVisible(true)}}><i className="iconfont icon-cha "></i></span>
+            <span onClick={()=>{this.formMolalType = "systemFirm";this.setStateValue('formModalVisible',true)}}><i className="iconfont icon-cha "></i></span>
           </p>
         </h1>
 
@@ -88,9 +89,9 @@ class SideList extends Component<Props>{
           }
           <MainPopups
           formModalVisible={this.state.formModalVisible}
-          onModalToggle={this.setFormModalVisible}
+          setStateValue={this.setStateValue}
           modalType={this.formMolalType}>
-            {this.formMolalType === "systemFirm" && <SystemModal onModalToggle={that.setFormModalVisible}  systemType="systemFirm"></SystemModal>}
+            {this.formMolalType === "systemFirm" && <SystemModal setStateValue={that.setStateValue}  systemType="systemFirm"></SystemModal>}
           </MainPopups>
       </div>
     )

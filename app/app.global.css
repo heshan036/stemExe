@@ -253,13 +253,15 @@ a:hover{color: #fff}
 }
 /* second page list */
 .sub_classList{
-  margin:6vh 0vw 0;
+  margin:6vh 3vw 0;
   position: absolute;
   /*top: 50%;*/
   /*transform: translate(0%,-50%);*/
   overflow: hidden;
   height: auto;
-  width: 100%;
+  left:0;
+  right: 0;
+  /* width: 100%; */
 }
 .sub_classList .ant-card{border-radius: 10px}
 .sub_classList  > div{
@@ -279,27 +281,20 @@ a:hover{color: #fff}
 
 /*大于800样式*/
 @media screen and (min-width: 801px){
-  /*.sub_classList{*/
-  /*height: 63vh;*/
-  /*}*/
-  .sub_classList  > div{
-    width:20.5%;
+  /* .sub_classList  > div{
+    width:16%;
   }
   .sub_classList>div img{ height: 40vh;}
-  .sub_classList > div:nth-child(4n){margin-right: 0}
-  .sub_classList > div{margin-right: 2%;  margin-left: 2%;}
+  .sub_classList > div{margin-right: 2%;  margin-left: 2%;} */
 }
 /*小于800样式*/
 @media screen and (max-width: 800px) {
-  /*.sub_classList{*/
-  /*height: 57vh;*/
-  /*}*/
-  .sub_classList  > div{
+  /* .sub_classList  > div{
     width:28%;
   }
   .sub_classList>div img{ height: 27vh;}
   .sub_classList > div:nth-child(3n){margin-right: 0}
-  .sub_classList  > div{margin-right: 5%;margin-left: 1%;}
+  .sub_classList  > div{margin-right: 5%;margin-left: 1%;} */
 }
 
 
@@ -413,14 +408,13 @@ a:hover{color: #fff}
 
 .subList_select.ant-select{
   position:absolute;
-  left: 1.3vw;
-
+  left: 3vw;
   overflow: hidden;
   -webkit-app-region: no-drag;
   width: 14.062vw;
   height:3.645vw;
   border-radius: 1.83vw;
-  margin-top: 5vh;
+  margin-top: 5.6vh;
 }
 .subList_select.ant-select .ant-select-selection{
   background: #0066e6;

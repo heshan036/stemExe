@@ -10,13 +10,14 @@ import HomePage from './containers/HomePage';
 import ThemeCourse from './components/themeCourse';
 import ScanCode from './components/scanCode';
 import SystemInfo from './components/systemInfo';
+import StemCourse from './components/stemCourse';
 
 
 export default () => (
   <App>
     <Switch>
       <Route path="/homePage" component={HomePage} />
-      <Route path="/themeCourse" component={ThemeCourse} />
+      <Route path="/stemCourse/:categary" component={StemCourse} />
       <Route path="/systemInfo" component={SystemInfo} />
       <Route path="/scanCode" component={ScanCode} />
       <Route path="/" component={HomePage} />

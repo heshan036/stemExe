@@ -39,5 +39,19 @@
   font-weight: bold;
 }
 
-
+.backBtn{
+  width:3.645vw;
+  height:3.645vw;
+  line-height:3.645vw;
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  top:-1vh;
+  left:3vw;
+  text-align: center;
+  z-index: 99999;
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+}
 

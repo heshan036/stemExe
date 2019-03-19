@@ -471,27 +471,11 @@ export const platformAPI= {
     const that=this;
     const remote =require('electron').remote;
     const kill=require('tree-kill');
-    // 关闭点读
-    platformAPI.talkPenCtrlMessage(0,-4);
-    // this.stopProcessSupport(that.talkPenProcessName);
-    // 关闭白板进程
-    platformAPI.pidOfProcessName(that.whiteboardProcessName,(parentId, processId)=>{
-      if(processId){
-        kill(processId, 'SIGKILL');
-      }
-    });
     platformAPI.pidOfProcessName(that.stemPlayerName,(parentId, processId)=>{
       if(processId){
         kill(processId, 'SIGKILL');
       }
     });
-    // processList.map(item =>{
-    //   if(item.exitCode || item.killed || item.signalCode){
-    //     return
-    //   };
-    //   console.log(item)
-    //   kill(item.pid, 'SIGKILL');
-    // })
 
 
   },
@@ -839,6 +823,27 @@ export const platformAPI= {
     downloader.ybCallback = callback;
     this.downloadingTask[downloadingKey] = dl;
     this.downloadingIndex += 1;
+  },
+
+  // 返回文件夹所有的课程列表
+  getLocalCourse:function (basePath,cb) {
+    const fullPath = path.join(basePath);
+
+    const files = [];
+    if (fs.existsSync(fullPath)) {
+      fs.readdirSync(fullPath).map((filename, index) => {
+        let stat=fs.statSync(path.join(fullPath,filename));
+        if(stat.isDirectory()){
+          files.push(filename);
+        }
+      });
+    };
+    if(cb){
+      typeof cb==='function' && cb(files);
+      return
+    }else{
+      return files;
+    }
   },
 
 
