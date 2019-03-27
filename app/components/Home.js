@@ -226,7 +226,7 @@ class Home extends Component{
                 }
                 <header className={styles.homeHeader}>
                     <div className={styles.header_l} style={{cursor:that.state.netStatus ? 'pointer':'default'}}>
-                        云宝贝传统文化
+                        <img src="./resource/images/logo.png" alt="logo"/>
                     </div>
                     <div className={styles.header_r}>
                         <Link to="/systemInfo" className={styles.menu_link}><img src="./resource/images/home_setting.png" alt="设置"/><p>设置</p></Link>

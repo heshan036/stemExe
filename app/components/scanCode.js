@@ -48,7 +48,7 @@ class ScanCode extends Component{
         let oneActTest = "http://wp.test.yunbaobei.com/wechat/action.do?action=scanBoxAct&needLogin=false&type=55&machineCode="+mac+"";
         let oneAct = "http://wp.yunbaobei.com/wechat/action.do?action=scanBoxAct&needLogin=false&type=55&machineCode="+mac+"";
         if(isOneAct){
-            qrcodeUrl = oneAct;
+            qrcodeUrl = oneActTest;
         };
         this.setState({
             qrcodeUrl
@@ -189,7 +189,7 @@ class ScanCode extends Component{
             <div>
                 <Header homeIconFlag={false}>
                     {/* <span className="pr" style={{display: "inline-block"}}> */}
-                        欢迎使用长征五代智慧课堂教学系统
+                    扫码激活
                     {/* </span> */}
                 </Header>
                 <div className={styles.scanContent}>

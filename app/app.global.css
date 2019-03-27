@@ -582,7 +582,7 @@ a:hover{color: #fff}
   border-top-left-radius: 15px;
   border-top-right-radius: 15px
 }
-.updateNotice .rocketImg{position: absolute;top:-35px;width: 100px;left: 20%;}
+.updateNotice .rocketImg{position: absolute;top:-35px;width: 100px;left: 16%;}
 .updateNotice .ant-modal-title{color: #fff;line-height: 108px;font-size: 2vw}
 .updateNotice  .ant-modal-body{
   background: #fff;

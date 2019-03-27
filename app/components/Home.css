@@ -18,17 +18,12 @@
   line-height:5.312vw;
   display: inline-block;
   -webkit-app-region: no-drag;
-  font-size: 1.6vw
+  font-size: 1.4vw;
+  position: relative;
 
 }
   .homeHeader .header_l img {
-    /*    width: 48px;
-    height: 48px;*/
-    position: absolute;
-    width: 5.312vw;
-    height: 5.312vw;
-    border-radius: 50%;
-    border: 2px solid #fff;
+    height: 5.4vh;
   }
 .homeHeader .header_l b{font-weight:100;}
 .homeHeader .header_r{
@@ -37,7 +32,8 @@
     -webkit-app-region: no-drag;
     right: 1.458vw;
     display: flex;
-    align-items: center
+    align-items: center;
+    text-decoration: none
 }
 
 .homeHeader .header_r a{
@@ -194,7 +190,7 @@
 }
 .contact p{text-align: center;cursor: pointer;padding:0 1vw;margin-right: 0.72vw}
 .contact img{height: 8.4vh}
-.contact span{font-size: 1.06vw;font-weight: lighter}
+.contact span{font-size: 1.06vw;font-weight: lighter;color:#000}
 
 .coursePlan{
     margin-bottom:24px;

@@ -429,7 +429,7 @@ function updateHandle() {
   const getdata = {
     detail: '当前已是最新版本'
   };// 通讯数据
-  const appName = '云宝贝课堂';
+  const appName = '云宝贝传统文化';
   // let appIcon= path.join( __dirname , 'resources/icon.ico');
   const message = {
     error: '当前已是最新版本',
