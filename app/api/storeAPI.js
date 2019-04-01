@@ -288,9 +288,8 @@ function getUser(){
 
 function getCheckinDate(){
   let systemDate = get('systemDate');
-
   if(systemDate && systemDate.length){
-    return new Date(systemDate);
+    return systemDate;
   }
 
   return null;
@@ -300,7 +299,7 @@ function setCheckinDate(date){
   if(date == null){
     date = new Date();
   }
-  setObject('systemDate', date);
+  setObject('systemDate', date.getTime());
 }
 
 

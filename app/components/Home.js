@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {Row,Col ,Icon,Modal,message,Button} from 'antd';
-import {remote ,ipcRenderer,ipcMain} from 'electron';
+import {remote ,ipcRenderer,ipcMain,shell} from 'electron';
 import { history } from '../store/configureStore';
 import API from '../api/api';
 import {platformAPI} from '../api/platform_api';
@@ -36,7 +36,7 @@ class Home extends Component{
         //拿到程序启动时候的时间，有可能时接口返回时间，有可能时没网时的本地时间
         that.nowDate=new Date(remote.getGlobal('globalDatas').loadTime);
         that.nowTime=that.nowDate.getTime();
-        if(oneActInfo.activateStatus === 2 && oneActInfo.expiry > that.nowTime ){
+        if(oneActInfo.activateStatus === 2 && parseInt(oneActInfo.expiry) > that.nowTime ){
             oneActUseFlag = true;
         }
     }
@@ -50,25 +50,24 @@ class Home extends Component{
         let duration = oneActInfo.expiry ? parseInt(oneActInfo.expiry) - that.nowTime : -1;
         if(duration < 0){
             onActExpiryFlag = true;
+            that.setModalState('expiryTimeRemind')
             this.freeTialHandle();
             return;
         };
 
         oneActUseFlag = true;
-        //弹出30天倒计时提醒
-        that.expiryRemind();
 
         // 如果有网络，则下载主题课程数据
-        if(navigator.onLine){
+        if(navigator.onLine && remote.getGlobal('globalDatas').loadFlag === 0 ){
             try{
-              API.getThemeCourse([that.curCategoryId]);
-            //   API.getCourseFileLog(2);
+              API.getThemeCourse([1,2,3,4,5,6]);
+              API.getCourseFileLog(2);
             }catch(err){
               console.log(err)
             }
         }
 
-         // 'globalDatas'为判断是否为loading页面跳转，如果是值为1，则判断时从loading来，避免每次进入首页都要运行此方法
+        // 'globalDatas'为判断是否为loading页面跳转，如果是值为1，则判断时从loading来，避免每次进入首页都要运行此方法
         if(remote.getGlobal('globalDatas').loadFlag === 1){
             that.LoadingFromUpdate();
         };
@@ -83,7 +82,8 @@ class Home extends Component{
      // 启动时要拿下的数据
     LoadingFromUpdate(){
         const that=this;
-        console.log('LoadingFromUpdate')
+        console.log('LoadingFromUpdate');
+
         //判断是否携带版本更新信息
         if(remote.getGlobal('globalDatas').updateAppInfo){
             const updateAppInfo=remote.getGlobal('globalDatas').updateAppInfo;
@@ -96,17 +96,23 @@ class Home extends Component{
                 updateVersion:updateAppInfo.versionName,
             })
         }
+
         // 无取消体验期点击记录，无体验期记录，则自动弹窗提醒
         if(!storeAPI.get('freeTrialConcel') && !storeAPI.getObject('freeTrial') && !oneActUseFlag){
             //如果是新管控，并且还在有效期内，则不主动弹窗体验
-            this.formMolalType='freeTrial';
-            this.systemType='freeTrial';
-            that.setState({ 
-                formModalVisible:true
-            })
+            that.setModalState('freeTrial')
         };
+              
         // 校验电脑时间
-        that.checkWindowTime();
+        let errTime = that.checkWindowTime();
+        
+        if(errTime){
+            return
+        }
+        
+        //弹出30天倒计时提醒
+        that.expiryRemind();
+
         // 重新获取一遍mac地址
         platformAPI.getIpconfiMac();
 
@@ -126,28 +132,26 @@ class Home extends Component{
         if(!freeTrialInfo || freeTrialInfo.expiry < that.nowTime){
             return;
         };
-
         oneActUseFlag=true;
-        // 启动点读
-        that.openTalkPenSupport();
-        //启动白板
-        that.openWhiteBoard();
     }
 
     // 校验当前电脑时间是否正确
     checkWindowTime=()=>{
         const that=this;
-        if(!navigator.onLine){ //没有网络的话
+        if(navigator.onLine && remote.getGlobal('globalDatas').netWork){ //没有网络的话
+            storeAPI.setCheckinDate();//保存当前本地时间为系统时间
+            return
+        }else{
             let systemDate = storeAPI.getCheckinDate();
             console.log(new Date(systemDate))
             //校验失效时间大于当前时间，则验证上次保存的系统启动时间与本地时间的大小，如果系统时间小，则弹出时间调整框
-            if(systemDate && new Date() < new Date(systemDate)){
-                that.setModalState('errTimeRemind')
+            if(systemDate && (new Date()).getTime() < systemDate){
+                that.setModalState('errTimeRemind');
+                return true
             }else{
                 storeAPI.setCheckinDate();//保存当前本地时间为系统时间
+                return
             }
-        }else{
-            storeAPI.setCheckinDate();//保存当前本地时间为系统时间
         }
 
     }
@@ -155,10 +159,8 @@ class Home extends Component{
     //弹出30天倒计时提醒
     expiryRemind=async (codeType,path='')=>{
         const that=this;
-
         let duration = parseInt(oneActInfo.expiry) - that.nowTime;
         let expiringCode = (duration <= 30*24*60*60*1000 && duration > 0) ? oneActInfo : null;
-
         if(!expiringCode){
              return
         };
@@ -187,7 +189,16 @@ class Home extends Component{
     }
 
     toStemCourse(categary){
-        history.push('/stemCourse/'+categary+'')
+        const that = this;
+        if(oneActUseFlag){
+            history.push('/stemCourse/'+categary+'')
+        }else{
+            if(onActExpiryFlag){
+                that.setModalState('expiryTimeRemind')
+            }else{
+                that.setModalState('actCourse')
+            }
+        }
     }
     
     // 改变state
@@ -229,8 +240,8 @@ class Home extends Component{
                         <img src="./resource/images/logo.png" alt="logo"/>
                     </div>
                     <div className={styles.header_r}>
-                        <Link to="/systemInfo" className={styles.menu_link}><img src="./resource/images/home_setting.png" alt="设置"/><p>设置</p></Link>
-                        <span onClick={this.hideWin}><i className="iconfont icon-jian" style={{fontSize:'2.2vw'}}></i></span>
+                        <Link to="/systemInfo" className={styles.menu_link}><img src="./resource/images/home_setting.png" alt="设置"/></Link>
+                        <span onClick={()=>ipcRenderer.send('hide-window')}><i className="iconfont icon-jian" style={{fontSize:'2.2vw'}}></i></span>
                         <span onClick={()=>{
                             that.setModalState('systemFirm')
                         }}>
@@ -278,8 +289,6 @@ class Home extends Component{
                 modalType={this.formMolalType}>
                 {this.formMolalType === "errTimeRemind" && <SystemModal setStateValue={that.setStateValue} systemType={that.systemType}></SystemModal>}
                 {this.formMolalType === "freeTrial" && <SystemModal setStateValue={that.setStateValue} systemType={that.systemType} freeTialHandle={that.freeTialHandle} setStateValue={that.setStateValue}></SystemModal>}
-                {this.formMolalType === "loginIn" && <LoginForm setStateValue={that.setStateValue}></LoginForm>}
-                {this.formMolalType === "userToggle" && <UserInfoForm setStateValue={that.setStateValue}></UserInfoForm>}
                 {this.formMolalType === "systemFirm" && <SystemModal setStateValue={that.setStateValue} systemType={that.systemType}></SystemModal>}
                 {this.formMolalType === "expiryTimeRemind" && <SystemModal setStateValue={that.setStateValue} systemType={that.systemType} codeType ={that.codeType_remind}></SystemModal>}
                 {this.formMolalType === "expiringRemind" && <SystemModal setStateValue={that.setStateValue} systemType={that.systemType} expiringCode ={that.expiringCode}></SystemModal>}

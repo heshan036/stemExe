@@ -412,24 +412,24 @@ a:hover{color: #fff}
   overflow: hidden;
   -webkit-app-region: no-drag;
   width: 14.062vw;
-  height:3.645vw;
+  height:3.245vw;
   border-radius: 1.83vw;
-  margin-top: 5.6vh;
+  top: 7.2vh;
 }
 .subList_select.ant-select .ant-select-selection{
   background: #0066e6;
   border:none;
   width: 14.062vw;
-  height:3.645vw;
+  height:3.245vw;
   border-radius: 1.83vw;
-  line-height:3.645vw;
+  line-height:3.245vw;
   text-align: center;
 
 }
 .subList_select.ant-select .ant-select-selection-selected-value{
   color: #fff;
   float: none;
-  line-height:3.645vw;
+  line-height:3.245vw;
   font-size: 1.4vw;
 }
 .subList_select.ant-select .ant-select-arrow{color:#fff}

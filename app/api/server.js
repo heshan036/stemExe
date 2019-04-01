@@ -42,7 +42,7 @@ export default class Server  {
           console.log(_option);
           axios.request(_option).then(res => {
             console.log(res);
-            remote.getGlobal('globalDatas').netWork = 1;
+            remote.getGlobal('globalDatas').netWork = true;
             if(res.status === 200){
               localStorage.setItem('systemDate',res.headers.date);
               // cookie.setCookie('systemDate',res.headers.date,365)

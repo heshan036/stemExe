@@ -55,3 +55,6 @@
   -webkit-app-region: no-drag;
 }
 
+.h_btn_group span:hover i{
+  color: #40A9FF;
+}

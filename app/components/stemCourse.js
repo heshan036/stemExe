@@ -31,7 +31,7 @@ class ThemeCourse extends Component{
       spinTxt:'',
       curCategoryName:'',
       curPaning:1,
-      pageSize:12,
+      pageSize:15,
       actFlag:true,
       imgHeight:{
         height:18+'vh',
@@ -544,8 +544,7 @@ class ThemeCourse extends Component{
     const ProgressCircle =Progress;
     return(
       <Spin spinning={that.state.refreshLoading} tip={this.state.spinTxt}>
-        <div className="subPage">
-          
+        <div className="subPage">        
           {this.state.actFlag &&
             <SiderList
             title={this.state.title}
@@ -561,7 +560,7 @@ class ThemeCourse extends Component{
                   {this.state.lesson_category.map(item => <Option value={item.unitId} key={item.unitId}>{item.unitName}</Option>)}
                 </Select>)
               }
-              <Row className="sub_classList" key="list" style={{marginTop:'8vh'}}>
+              <Row className="sub_classList" key="list" style={{marginTop:'8vh',overflow:"visible"}}>
                 {this.state.curList.map((item,index) =>{
                   return(
                     <Col

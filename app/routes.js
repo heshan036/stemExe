@@ -3,7 +3,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router';
 import {remote} from 'electron';
 import App from './containers/App';
-import HomePage from './containers/HomePage';
+import HomePage from './components/Home';
 import ScanCode from './components/scanCode';
 import SystemInfo from './components/systemInfo';
 import StemCourse from './components/stemCourse';

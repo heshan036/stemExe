@@ -189,7 +189,7 @@
     align-items: center
 }
 .contact p{text-align: center;cursor: pointer;padding:0 1vw;margin-right: 0.72vw}
-.contact img{height: 8.4vh}
+.contact img{height: 9.2vh}
 .contact span{font-size: 1.06vw;font-weight: lighter;color:#000}
 
 .coursePlan{
@@ -235,4 +235,8 @@
 }
 
 .coursePlan figcaption p{font-size: 1.06vw;font-weight:lighter}
+
+.header_r span:hover i{
+    color: #40A9FF;
+}
 

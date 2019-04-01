@@ -27,13 +27,10 @@ class MainPopups extends Component{
           {this.props.modalType !== 'errTimeRemind' && (<span className="popupsClose" onClick={()=> this.onModalToggle(false)}>
             <i className="iconfont icon-chahao"></i>
           </span>)}
-          <h2 className={(this.props.modalType === "loginIn" || this.props.modalType=== 'userToggle') ? "modalTitle1" :"modalTitle2"}>
-            {this.props.modalType === "loginIn" && <p><b>登录</b></p>}
-            {this.props.modalType === "userToggle" && <p><b>用户信息</b></p>}
+          <h2 className="modalTitle2">
             { (this.props.modalType==='expiringRemind') && <p><b>到期提醒</b></p>}
-            {(this.props.modalType==='expiryTimeRemind' ||this.props.modalType === "systemFirm" || this.props.modalType=== 'errTimeRemind' || this.props.modalType=== 'actPlayClass' || this.props.modalType=== 'actPrimary'  || this.props.modalType==='teachResourceRemind' || this.props.modalType==='actCodeRemind' || this.props.modalType==='actCodeChangeRemind' || this.props.modalType === 'freeTrial' || this.props.modalType === 'actCourse') && <p><b>系统提醒</b></p>}
-            {(this.props.modalType === "systemFirm" || this.props.modalType=== 'errTimeRemind' ||this.props.modalType==='expiryTimeRemind' || this.props.modalType==='expiringRemind' || this.props.modalType=== 'actPlayClass' || this.props.modalType=== 'actPrimary'  || this.props.systemType==='teachResourceRemind' ||  this.props.modalType==='actCodeRemind'|| this.props.modalType==='actCodeChangeRemind' || this.props.modalType === 'freeTrial') && <img src="./resource/images/system_bg1.png" className="pin"/>}
-            {this.props.modalType === "loginIn" && <p>请使用教师账号登录</p>}
+            {(this.props.modalType==='expiryTimeRemind' ||this.props.modalType === "systemFirm" || this.props.modalType=== 'errTimeRemind' || this.props.modalType === 'freeTrial' || this.props.modalType === 'actCourse') && <p><b>系统提醒</b></p>}
+            {(this.props.modalType === "systemFirm" || this.props.modalType=== 'errTimeRemind' ||this.props.modalType==='expiryTimeRemind' || this.props.modalType==='expiringRemind' || this.props.modalType === 'freeTrial') && <img src="./resource/images/system_bg1.png" className="pin"/>}
           </h2>
           <div className="center_modalCon">
             {this.props.children}

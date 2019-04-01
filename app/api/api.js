@@ -14,48 +14,7 @@ let macAdress = storeAPI.get('realMac') ? storeAPI.get('realMac')  : storeAPI.ge
 let deviceID = macAdress;
 
 class API extends Server {
-  // 登录
-  async login(params = {}) {
-    try {
-      const _option = {
-        header: {
-          appId: '8',
-          version: '10',
-          device: {
-            mac: deviceID
-          }
-        },
-        reqName: 'JsLoginReq',
-        params
-      };
-      let userNameArr_new = '';
-      const result = await this.axios('POST', _option);
-      console.log(result);
-      if (result) {
-        const value = await cookie.getCookie('userNameArr');
-        if (value === 0) {
-          userNameArr_new = params.userName;
-        } else {
-          if(!value.includes(params.userName)){
-            userNameArr_new = `${value},${params.userName}`;
-          }else{
-            userNameArr_new=value;
-          }
-        };
-        cookie.setCookie('userNameArr', userNameArr_new, 365);
-        return result;
-      };
-      const err = {
-        tip: '登录失败',
-        response: result,
-        data: params
-      };
-      throw err;
-    } catch (err) {
-      throw err;
-    }
-  }
-
+  
  async requestNet(reqName, params = {}, reqHeaderFlag,cb) {
     const that=this;
     let reqHeaderTag;
@@ -85,7 +44,7 @@ class API extends Server {
     if(reqHeaderFlag === 4){ //教学资源直播课外appId用6
       var reqHeader = Object.assign({}, reqHeaderTag, { appId: '6', version: '10' });
     }else{
-      var reqHeader = Object.assign({}, reqHeaderTag, { appId: '8', version: '10' });
+      var reqHeader = Object.assign({}, reqHeaderTag, { appId: '9', version: '10' });
     }
     const _option = {
       header: reqHeader,
@@ -119,7 +78,7 @@ class API extends Server {
     const that=this;
     const _option = {
       header: {
-        appId: '8',
+        appId: '9',
         version: '10' ,
         device: {
           mac: deviceNo
@@ -164,20 +123,33 @@ class API extends Server {
           if(!res.rsp){
             reject(res)
           };
-          let themeCourseRSP=res.rsp ? res.rsp :'' ;
-          let sum=themeCourseRSP.courseList ? themeCourseRSP.courseList.length :0;
-          if(sum > 0){
-            for(let [index,item] of themeCourseRSP.courseList.entries()){
+          let themeCourseRSP = res.rsp ? res.rsp :'' ;
+          if(themeCourseRSP.courseList instanceof Array){
+            let courseObj = {};
+            let courseList = [];
+            for(let i = 0;i < themeCourseRSP.courseList.length;i++){
+              let item = themeCourseRSP.courseList[i];
               if(act_term_valid.includes(item.term)){
-                let coverUrl=themeCourseRSP.courseListIterator[index].coverUrl.startsWith('http') ? themeCourseRSP.courseListIterator[index].coverUrl : baseNetUrl+themeCourseRSP.courseListIterator[index].coverUrl;
-                if(item.coverUrl !== '' && !fs.existsSync(path.join(platformAPI.imgBasePath,coverUrl))){
-                  item.coverUrl=await platformAPI.downloadImg(coverUrl,'uploadImages');
+                let coverUrl=item.coverUrl.startsWith('http') ? item.coverUrl : baseNetUrl + item.coverUrl;
+                if(!fs.existsSync(path.join(platformAPI.imgBasePath,coverUrl))){
+                  item.coverUrl = await platformAPI.downloadImg(coverUrl,'uploadImages');
                 };
               }
+              courseList.push(item)
             };
-            const t = await platformAPI.createFile('localData','themeCourse_stem.json',JSON.stringify(themeCourseRSP));
-            console.log(themeCourseRSP);
-            resolve(themeCourseRSP)
+            courseObj.courseList = courseList;
+            courseObj.unitList = themeCourseRSP.unitList;
+            // for(let [index,item] of themeCourseRSP.courseList.entries()){
+            //   if(act_term_valid.includes(item.term)){
+            //     let coverUrl=themeCourseRSP.courseListIterator[index].coverUrl.startsWith('http') ? themeCourseRSP.courseListIterator[index].coverUrl : baseNetUrl+themeCourseRSP.courseListIterator[index].coverUrl;
+            //     if(item.coverUrl !== '' && !fs.existsSync(path.join(platformAPI.imgBasePath,coverUrl))){
+            //       item.coverUrl=await platformAPI.downloadImg(coverUrl,'uploadImages');
+            //     };
+            //   }
+            // };
+            console.log(courseObj);
+            const t = await platformAPI.createFile('localData','themeCourse_stem.json',JSON.stringify(courseObj));
+            resolve(courseObj)
           }else{
             resolve(themeCourseRSP)
           }

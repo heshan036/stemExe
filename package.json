@@ -1,7 +1,7 @@
 {
   "name": "ybb-pc-ng",
   "productName": "云宝贝传统文化",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "智慧幼教是移动互联网时代，长征教育结合幼儿园的教育教学、园所管理、师资团队、家园共育、安全防护、宣传招生六大方面，从幼儿园整体运营出发，为幼儿园量身打造的信息化整体解决方案。包括：智慧课堂、智慧管理、智慧师训、智慧家园、智能卫士、微信招生号，全面打造数字化幼儿园。",
   "scripts": {
     "build": "concurrently \"npm run build-main\" \"npm run build-renderer\"",

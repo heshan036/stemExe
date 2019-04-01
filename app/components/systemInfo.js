@@ -89,9 +89,7 @@ class SystemInfo extends Component{
     }
 
     this.getUpdate();
-    if(!isOneAct){
-      this.getData();
-    }
+    
     if(!this.state.macCode){
       this.getMac()
     }
@@ -170,67 +168,6 @@ class SystemInfo extends Component{
       return a[property2] - b[property2];
     }
   }
-
-  // 格式激活码信息
-  getData=async ()=>{
-    const that=this;
-    let actKey = storeAPI.getActiveKeyObj();
-    let editInfo=await platformAPI.readFile('localData','actKeyUse.json');
-    let actCodeEdit={};
-    if((editInfo !== 0 && decodeURI(editInfo) && typeof decodeURI(editInfo) === 'string')){
-      try{
-        actCodeEdit=JSON.parse(decodeURI(editInfo))
-      }catch(err){
-        let filePath=path.join(platformAPI.fileBasePath,'actKeyUse.json');
-        if(fs.existsSync(filePath)){
-          fs.unlinkSync(filePath);
-        };
-      }
-    }
-
-    // actCodeEdit=(editInfo !== 0 && decodeURI(editInfo) && typeof decodeURI(editInfo) === 'string') ? JSON.parse(decodeURI(editInfo)) : {};
-    let actCodeEdit_Keys=Object.keys(actCodeEdit);
-    if(actKey){
-      let codeList=actKey.codeList;
-      let actInfoList=[];
-      let codeTypeNameList=['0','特色课程','科学','主题课程','幼小衔接-拼音','幼小衔接-识字','幼小衔接-数学'];
-      let termNameList1=['0','第一级（小上）','第二级（小下）','第三级（中上）','第四级（中下）','第五级（大上）','第六级（大下）'];
-      let termNameList2=['0','上册','下册'];
-      codeList.map(x=>{
-        let actInfo={};
-        let codeTypeName=codeTypeNameList[x.codeType];
-        let termName;
-        if(x.codeType === 1){
-          termName='全部学科';
-          actInfo.name = codeTypeName +'-'+ termName;
-        };
-        if(x.codeType === 3){
-          termName = termNameList1[x.term];
-          actInfo.name = codeTypeName +'-'+ termName;
-        };
-        if(x.codeType === 4 || x.codeType === 5 ||x.codeType === 6){
-          termName =  termNameList2[x.term];
-          actInfo.name = codeTypeName + termName;
-        };
-        actInfo.effectiveDate = Util.formatTimestamp(x.effective,'date',true);
-        actInfo.expiryDate=Util.formatTimestamp(x.expiry,'date',true);
-        actInfo.codeType=x.codeType;
-        actInfo.term=x.term;
-        actInfo.code=x.code;
-        actInfo.mac=x.machineCode;
-        actInfo.playNum=actCodeEdit_Keys.includes(x.code) ? actCodeEdit[x.code] : 0;
-        actInfo.modCnt= x.modCnt;
-        actInfoList.push(actInfo);
-      });
-      console.log(actInfoList);
-      actInfoList.sort(that.listSort('codeType','term'))
-      platformAPI.createFile('localData','actKey.json',JSON.stringify(actInfoList));
-      this.setState({
-        actInfoList
-      });
-    };
-  }
-
 
   toActHandle(){
     let path = {

@@ -408,6 +408,9 @@ export const platformAPI= {
   // 往文件夹内下载图片
   downloadImg :function(url, fileUrl,cb){
     // const request = require('electron').remote.require('request');
+    if(!url){
+      return ''
+    };
     const basePath = this.fileBasePath;
     const last = url.lastIndexOf('/');
     return new Promise((resolve,reject)=>{

@@ -55,7 +55,6 @@ class SideList extends Component{
           {!this.props.network &&
             <div className="noPage">
               <img src="./resource/images/no_wifi.png"/>
-              <p>当前网络不可用，请检查您的网络设置</p>
               <Button onClick={()=>this.props.getList()} className="tbn_green">立即刷新</Button>
             </div>
           }

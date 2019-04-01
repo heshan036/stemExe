@@ -63,7 +63,7 @@ class Cookie {
     });
   }
 
-  async clearCookies(storages=['cookies']){
+ clearCookies(storages=['cookies']){
     session.defaultSession.clearStorageData({
       origin: url,
       storages: storages

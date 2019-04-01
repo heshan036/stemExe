@@ -262,7 +262,7 @@ function getNetData(){
 
 function requestNet(reqName, params = {},deviceID,flag,cb){
   let header={
-      "appId": "8" ,
+      "appId": "9" ,
       "version": "10",
       "device":{
         "mac":deviceID
@@ -291,6 +291,7 @@ function requestNet(reqName, params = {},deviceID,flag,cb){
   };
   axios.request(_option).then(res => {
     console.log(res);
+    remote.getGlobal('globalDatas').netWork = true;
     if(res.headers.date){
       remote.getGlobal('globalDatas').loadTime = res.headers.date;
       storeAPI.setCheckinDate();
@@ -299,7 +300,8 @@ function requestNet(reqName, params = {},deviceID,flag,cb){
       typeof cb === 'function' && cb(res.data)
     };
   },error => {
-    console.log(error)
+    console.log(error);
+    remote.getGlobal('globalDatas').netWork = false;
   });
 }
 
