@@ -263,7 +263,7 @@ a:hover{color: #fff}
   right: 0;
   /* width: 100%; */
 }
-.sub_classList .ant-card{border-radius: 10px}
+.sub_classList .ant-card{border-radius: 10px;background: #fff}
 .sub_classList  > div{
   border-radius: 10px;
   overflow: hidden;

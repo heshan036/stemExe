@@ -191,7 +191,7 @@ function createLoadingWindow() {
   console.log(`loading window url ${loadingWindowURL}`);
   loadingWindow.loadURL(loadingWindowURL);
 
-  // loadingWindow.openDevTools();
+  loadingWindow.openDevTools();
 
   // load启动
   loadingWindow.webContents.on('did-finish-load', () => {
