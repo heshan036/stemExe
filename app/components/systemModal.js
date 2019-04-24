@@ -34,7 +34,7 @@ class SystemModal extends Component{
     oneActInfo = remote.getGlobal('globalDatas').oneActInfo;
     console.log(props)
     this.state={
-      msg:"确定要关闭云宝贝吗？",
+      msg:"确定要关闭云宝贝传统文化吗？",
       btn1:'再看看',
       btn2:'确定',
       btn_loading:false,
@@ -72,7 +72,7 @@ class SystemModal extends Component{
       }
     }else if(this.props.systemType === 'errTimeRemind'){
       this.setState({
-        msg:"云宝贝检测到您的系统时间有调整，请调回正确的时间后重新启动程序！",
+        msg:"云宝贝传统文化检测到您的系统时间有调整，请调回正确的时间后重新启动程序！",
         msg1:'',
         btn1:'确定',
         btn2:''
@@ -84,7 +84,7 @@ class SystemModal extends Component{
         btn2:'关闭'
       })
     }else if(this.props.systemType==='systemFirm'){
-      let msg =  remote.getGlobal('globalDatas').updateFlag ?  "正在下载更新文件，确定要关闭云宝贝吗？" : "确定要关闭云宝贝吗？";
+      let msg =  remote.getGlobal('globalDatas').updateFlag ?  "正在下载更新文件，确定要关闭云宝贝传统文化吗？" : "确定要关闭云宝贝传统文化吗？";
       this.setState({
         msg:msg,
         msg1:'',
@@ -108,7 +108,7 @@ class SystemModal extends Component{
       })
     }else if(this.props.systemType === 'freeTrial'){
       this.setState({
-        msg:"云宝贝送您七天免费体验啦，可查看全部课程哦，赶快试一试吧！",
+        msg:"云宝贝传统文化送您七天免费体验啦，可查看全部课程哦，赶快试一试吧！",
         btn1:'立即体验',
         btn2:'不再提示'
       })
@@ -232,12 +232,12 @@ class SystemModal extends Component{
 
   timeRemindSureHandle=()=>{
     let now=(new Date()).toLocaleDateString();
-    cookie.setCookie('timeRemind_'+this.props.expiringCode.code+'',now,1);
+    cookie.setCookie('timeRemind',now,1);
     this.props.setStateValue('formModalVisible',false)
   }
 
   timeRemindNotHandle=()=>{
-    cookie.setCookie('nottimeRemind_'+this.props.expiringCode.code+'','1',30);
+    cookie.setCookie('nottimeRemind','1',30);
     this.props.setStateValue('formModalVisible',false)
   }
 

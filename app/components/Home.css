@@ -43,6 +43,7 @@
 .homeHeader .header_r a img{
    width: 2.7vw;
    height:2.7vw;
+   margin-top: 0.2vw;
    transition: all 0.4s ease 0s;
 }
 

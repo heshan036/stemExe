@@ -48,7 +48,7 @@ class ScanCode extends Component{
         let oneActTest = "http://wp.test.yunbaobei.com/wechat/action.do?action=scanBoxAct&needLogin=false&type=55&machineCode="+mac+"";
         let oneAct = "http://wp.yunbaobei.com/wechat/action.do?action=scanBoxAct&needLogin=false&type=55&machineCode="+mac+"";
         if(isOneAct){
-            qrcodeUrl = oneActTest;
+            qrcodeUrl = oneAct;
         };
         this.setState({
             qrcodeUrl
@@ -193,7 +193,7 @@ class ScanCode extends Component{
                     {/* </span> */}
                 </Header>
                 <div className={styles.scanContent}>
-                    <p className="tc mb2 fvw30">请扫描下方二维码，并根据提示进行激活，激活完成后请在联网状态下点击“激活完成”或重启云宝贝。</p>
+                    <p className="tc mb2 fvw30">请扫描下方二维码，并根据提示进行激活，激活完成后请在联网状态下点击“激活完成”或重启云宝贝传统文化。</p>
                     <div className={styles.qrcodeBox}>
                         <QRCode value={qrcodeUrl} size={176} className={styles.qrcode}/>
                     </div>

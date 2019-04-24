@@ -5,7 +5,7 @@ grunt.config.init({
   pkg: grunt.file.readJSON('gruntPackage.json'),
   'create-windows-installer': {
     ia32:{
-      version:'2.0.0',
+      version:'1.0.0',
       authors:'YBB Team, Talkweb co.ltd',
       projectUrl:'',
       appDirectory:'./release/win-ia32-unpacked',//要打包的输入目录

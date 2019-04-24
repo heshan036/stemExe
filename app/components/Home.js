@@ -47,6 +47,7 @@ class Home extends Component{
             this.freeTialHandle()
             return;
         };
+        that.expiryRemind();
         let duration = oneActInfo.expiry ? parseInt(oneActInfo.expiry) - that.nowTime : -1;
         if(duration < 0){
             onActExpiryFlag = true;
@@ -164,12 +165,12 @@ class Home extends Component{
         if(!expiringCode){
              return
         };
-        let nottimeRemind = await cookie.getCookie('nottimeRemind_'+expiringCode.code+'');
+        let nottimeRemind = await cookie.getCookie('nottimeRemind');
         if(nottimeRemind === '1'){
             return;
         };
         let nowDay=(new Date()).toLocaleDateString();
-        let timeRemind=await cookie.getCookie('timeRemind_'+expiringCode.code+'');
+        let timeRemind=await cookie.getCookie('timeRemind');
         if(timeRemind === nowDay){
              return;
         };

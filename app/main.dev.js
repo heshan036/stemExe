@@ -439,16 +439,6 @@ function updateHandle() {
     downloaded: '最新版本已下载，将在重启程序后更新'
   };
 
-
-  const server = 'http://pclgv6.update.yunbaobei.com';
-
-  // /download/:version/:platform/:filename
-  // const server = 'http://localhost:8000';
-  //// "url": "http://pcv6.update.yunbaobei.com/"
-  // let feed = `${server}/official/${process.arch}`;
-  // console.log(`updater ready at ${feed}`);
-  //
-
   // 更新出错
   autoUpdater.on('error', (message) => {
     global.globalDatas.updateFlag = false;
